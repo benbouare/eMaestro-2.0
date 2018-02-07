@@ -1,0 +1,8 @@
+TestEnvoi.MainActivity, TestEnvoi;md55e9478f148f39da31e642da97947ed09.MainActivity
+TestEnvoi.MainActivity, TestEnvoi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md55e9478f148f39da31e642da97947ed09.MainActivity
+TestEnvoi.MainActivity;md55e9478f148f39da31e642da97947ed09.MainActivity
+testenvoi.MainActivity;md55e9478f148f39da31e642da97947ed09.MainActivity
+TestEnvoi.PortEnvoi, TestEnvoi;md55e9478f148f39da31e642da97947ed09.PortEnvoi
+TestEnvoi.PortEnvoi, TestEnvoi, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md55e9478f148f39da31e642da97947ed09.PortEnvoi
+TestEnvoi.PortEnvoi;md55e9478f148f39da31e642da97947ed09.PortEnvoi
+testenvoi.PortEnvoi;md55e9478f148f39da31e642da97947ed09.PortEnvoi
