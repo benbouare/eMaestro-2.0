@@ -66,7 +66,7 @@ namespace MaestroPad
                if( (tempoval = Convert.ToInt32(tmp.ToString()))!=0)
                 {
                     indicateur++;
-                    tempoval = (60 / tempoval) * 1000; 
+                    tempoval = (60000 / tempoval) ; 
                     mythread.Start();
                 }
                 else
@@ -125,7 +125,7 @@ namespace MaestroPad
                 else
                 {
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(1, 120, temps);
+                    monenvoi.noteOff(2, 120, temps-1);
                     monenvoi.noteOn(1, 120, temps);
                     
                    // verif_tempo();
@@ -134,8 +134,12 @@ namespace MaestroPad
                 if (temps > 3)
                 {
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(1, 120, temps);
+                    monenvoi.noteOff(2, 120, temps-1);
+                    monenvoi.noteOn(1, 120, temps);
+                    Thread.Sleep(tempoval);
+                    monenvoi.noteOff(2, 120, temps);
                     temps = 1;
+                    
                 }
             }
           
