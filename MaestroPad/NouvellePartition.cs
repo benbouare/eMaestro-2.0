@@ -93,9 +93,16 @@ namespace MaestroPad
 
                 if(toutestok==4)
                 {
-
-                     var intent = new Intent(this, typeof(Parametragesecondaire));
-                     StartActivity(intent);
+                    if (valnum > 24 || valdenom > 24)
+                    {
+                        Toast.MakeText(ApplicationContext, "Veuillez renseigner un nombre inferieur ou egal 24", ToastLength.Long).Show();
+                    }
+                    else
+                    {
+                        var intent = new Intent(this, typeof(Parametragesecondaire));
+                        StartActivity(intent);
+                    }
+                     
 
                   }
 
