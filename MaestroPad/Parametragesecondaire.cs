@@ -6,6 +6,8 @@ using Android.OS;
 using Android.Widget;
 using Android.Media.Midi;
 using System.Threading;
+using Android.Views;
+using static Java.Interop.JniEnvironment;
 
 namespace MaestroPad
 {
@@ -15,11 +17,10 @@ namespace MaestroPad
 
         EnvoiViaMidi monenvoi;
         private MidiManager manager;
-        int tempoval = 1;
+        public static int tempoval = 1;
         int indicateur = 0;
-        int VELOCITY = 0;
-        int valnote = 0;
-        string[] valeurnote = { "ronde", "blanche", "noire", "croche", "blanchepointé", "noirepointé", "crochepointé" };
+        public static int VELOCITY = 0;
+        public static int valnote = 1;
         Thread mythread;
         //  int compteurTemps = 0;
 
@@ -42,14 +43,7 @@ namespace MaestroPad
             // choix de la note des BPM
             RadioGroup choixnotes = FindViewById<RadioGroup>(Resource.Id.notedutempo);
             RadioButton choixnote = FindViewById<RadioButton>(choixnotes.CheckedRadioButtonId);
-            string note = choixnote.Text.ToString();
-            switch (note)
-            {
-                //  case ronde:
-
-            }
-
-
+            
 
 
             monenvoi = new EnvoiViaMidi(manager, this);
@@ -65,6 +59,36 @@ namespace MaestroPad
                 string tmp = tempo.Text;
                 if ((tempoval = Convert.ToInt32(tmp.ToString())) != 0)
                 {
+                    string note = choixnote.Text.ToString();
+                    if (note == "ronde")
+                    {
+                        valnote = 1;
+                    }
+                    if (note == "blanche")
+                    {
+                        valnote = 2;
+                    }
+                    if (note == "noire")
+                    {
+                        valnote = 4;
+                    }
+                    if (note == "croche")
+                    {
+                        valnote = 8;
+                    }
+                    if (note == "blanchepointé")
+                    {
+                        valnote = 3;
+                    }
+                    if (note == "noirepointé")
+                    {
+                        valnote = 6;
+                    }
+                    if (note == "crochepointé")
+                    {
+                        valnote = 12;
+                    }
+
                     indicateur++;
                     tempoval = (60000 / tempoval);
                     mythread.Start();
@@ -144,6 +168,16 @@ namespace MaestroPad
             }
 
 
+        }
+        [Java.Interop.Export("RadioButton_OnClick")]
+        0References
+        public void RadioButton_OnClick(View v)
+        {
+            switch (v.Id)
+            {
+                case Resource.Id.radioButton1:
+
+            }
         }
     }
 }

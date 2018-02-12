@@ -10,10 +10,10 @@ namespace MaestroPad
     [Activity(Label = "Nouvelle Partition")]
     public class NouvellePartition : Activity
     {
-        int nbrMesure = 0;
-        int valnum = 0;
-        int valdenom = 0;
-        string nom = null;
+       public static int nbrMesure = 0;
+        public static int valnum = 0;
+       public static int valdenom = 0;
+        public static string nom = null;
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
