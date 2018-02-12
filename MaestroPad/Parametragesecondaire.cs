@@ -12,21 +12,21 @@ namespace MaestroPad
     [Activity(Label = "Parametragesecondaire")]
     public class Parametragesecondaire : Activity
     {
-      
+
         EnvoiViaMidi monenvoi;
         private MidiManager manager;
         int tempoval = 1;
         int indicateur = 0;
         int VELOCITY = 0;
         int valnote = 0;
-        string[] valeurnote = { "ronde","blanche","noire","croche","blanchepointé","noirepointé","crochepointé"};
+        string[] valeurnote = { "ronde", "blanche", "noire", "croche", "blanchepointé", "noirepointé", "crochepointé" };
         Thread mythread;
-      //  int compteurTemps = 0;
-        
+        //  int compteurTemps = 0;
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-             
+
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Parametragesecondaire);
 
@@ -42,31 +42,31 @@ namespace MaestroPad
             // choix de la note des BPM
             RadioGroup choixnotes = FindViewById<RadioGroup>(Resource.Id.notedutempo);
             RadioButton choixnote = FindViewById<RadioButton>(choixnotes.CheckedRadioButtonId);
-            string note =choixnote.Text.ToString();
-            switch(note)
+            string note = choixnote.Text.ToString();
+            switch (note)
             {
-              //  case ronde:
+                //  case ronde:
 
             }
 
-      
 
 
-        monenvoi = new EnvoiViaMidi(manager, this);
+
+            monenvoi = new EnvoiViaMidi(manager, this);
 
             back.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(NouvellePartition));
                 StartActivity(intent);
-            }; 
-           // MainActivity nvll = new MainActivity();
+            };
+            // MainActivity nvll = new MainActivity();
             envoyer.Click += (sender, e) =>
             {
                 string tmp = tempo.Text;
-               if( (tempoval = Convert.ToInt32(tmp.ToString()))!=0)
+                if ((tempoval = Convert.ToInt32(tmp.ToString())) != 0)
                 {
                     indicateur++;
-                    tempoval = (60000 / tempoval) ; 
+                    tempoval = (60000 / tempoval);
                     mythread.Start();
                 }
                 else
@@ -74,8 +74,8 @@ namespace MaestroPad
                     indicateur = 0;
                     verif_tempo();
                 }
-  
-                    
+
+
 
 
 
@@ -88,8 +88,8 @@ namespace MaestroPad
             string message = string.Empty;
 
             //
-            if (indicateur!=0)
-                message = "recuperation et conversion correcte du tempo"+ tempoval + " BPM " + VELOCITY ;
+            if (indicateur != 0)
+                message = "recuperation et conversion correcte du tempo" + tempoval + " BPM " + VELOCITY;
             else
                 message = "echec de la recuperation du tempo";
 
@@ -99,10 +99,10 @@ namespace MaestroPad
         }
         private void control()
         {
-            
+
             string message = string.Empty;
 
-            
+
             if (tempoval != 0)
                 message = "Etape suivante";
             else
@@ -125,25 +125,25 @@ namespace MaestroPad
                 else
                 {
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, 120, temps-1);
+                    monenvoi.noteOff(2, 120, temps - 1);
                     monenvoi.noteOn(1, 120, temps);
-                    
-                   // verif_tempo();
+
+                    // verif_tempo();
                 }
                 temps++;
                 if (temps > 3)
                 {
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, 120, temps-1);
+                    monenvoi.noteOff(2, 120, temps - 1);
                     monenvoi.noteOn(1, 120, temps);
                     Thread.Sleep(tempoval);
                     monenvoi.noteOff(2, 120, temps);
                     temps = 1;
-                    
+
                 }
             }
-          
-           
+
+
         }
     }
 }
