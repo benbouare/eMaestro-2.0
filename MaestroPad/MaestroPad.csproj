@@ -56,8 +56,10 @@
   <ItemGroup>
     <Compile Include="EnvoiViaMidi.cs" />
     <Compile Include="InfosPorts.cs" />
-    <Compile Include="Parametragesecondaire.cs" />
-    <Compile Include="Partition.cs" />
+    <Compile Include="Mapartition.cs" />
+    <Compile Include="Parametragesecondaire.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="MainActivity.cs" />
     <Compile Include="NouvellePartition.cs" />
     <Compile Include="PortEnvoi.cs" />

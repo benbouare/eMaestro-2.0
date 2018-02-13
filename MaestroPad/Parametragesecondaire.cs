@@ -6,6 +6,7 @@ using Android.OS;
 using Android.Widget;
 using Android.Media.Midi;
 using System.Threading;
+using System.Collections.Concurrent;
 
 namespace MaestroPad
 {
@@ -15,25 +16,41 @@ namespace MaestroPad
 
         EnvoiViaMidi monenvoi;
         private MidiManager manager;
-        int tempoval = 1;
-        int indicateur = 0;
-        int VELOCITY = 0;
-        int valnote = 0;
-        string[] valeurnote = { "ronde", "blanche", "noire", "croche", "blanchepointé", "noirepointé", "crochepointé" };
+        public static int tempoval = 1;
+        public static int indicateur = 0;
+        public static int VELOCITY = 0;
+        public static int valnote = 0;
+        public static int valnumerateur=0;
+        public static int valdenominateur = 0;
+        public static int nombresdemesure = 0;
+        string  nom = null;
+
+
         Thread mythread;
+        
+
         //  int compteurTemps = 0;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
-
+            
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.Parametragesecondaire);
+
+            //recuperaion des données de l'étape precedente 
+            nom = Intent.GetStringExtra("nom") ?? "nom not available";
+            string mesure = Intent.GetStringExtra("nombresdemesure") ?? "nombresdemesure not available";
+            nombresdemesure = Convert.ToInt32(mesure);
+            string numerateur = Intent.GetStringExtra("numerateur") ?? "numerateur not available";
+            valnumerateur = Convert.ToInt32(numerateur);
+            string denominateur = Intent.GetStringExtra("denominateur") ?? "denominateur not available";
+            valdenominateur = Convert.ToInt32(denominateur);
 
             //initialisation du manager
             manager = (MidiManager)GetSystemService(MidiService);
             mythread = new Thread(new ThreadStart(envoi));
-
+            
             // Create your application here
             Button back = FindViewById<Button>(Resource.Id.back);
             Button envoyer = FindViewById<Button>(Resource.Id.send);
@@ -42,12 +59,8 @@ namespace MaestroPad
             // choix de la note des BPM
             RadioGroup choixnotes = FindViewById<RadioGroup>(Resource.Id.notedutempo);
             RadioButton choixnote = FindViewById<RadioButton>(choixnotes.CheckedRadioButtonId);
-            string note = choixnote.Text.ToString();
-            switch (note)
-            {
-                //  case ronde:
 
-            }
+           
 
 
 
@@ -85,6 +98,7 @@ namespace MaestroPad
         private void verif_tempo()
         {
             //
+            
             string message = string.Empty;
 
             //
@@ -120,24 +134,24 @@ namespace MaestroPad
                 //envoi  noteON et noteOFF
                 if (temps == 1)
                 {
-                    monenvoi.noteOn(1, 120, temps);
+                    monenvoi.noteOn(1, valnumerateur, temps);
                 }
                 else
                 {
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, 120, temps - 1);
-                    monenvoi.noteOn(1, 120, temps);
+                    monenvoi.noteOff(2, valnumerateur, temps - 1);
+                    monenvoi.noteOn(1, valnumerateur, temps);
 
                     // verif_tempo();
                 }
                 temps++;
-                if (temps > 3)
+                if (temps > valnumerateur)
                 {
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, 120, temps - 1);
-                    monenvoi.noteOn(1, 120, temps);
+                    monenvoi.noteOff(2, valnumerateur, temps - 1);
+                    monenvoi.noteOn(1, valnumerateur, temps);
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, 120, temps);
+                    monenvoi.noteOff(2, valnumerateur, temps);
                     temps = 1;
 
                 }

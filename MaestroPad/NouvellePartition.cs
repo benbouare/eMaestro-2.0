@@ -10,14 +10,18 @@ namespace MaestroPad
     [Activity(Label = "Nouvelle Partition")]
     public class NouvellePartition : Activity
     {
-        int nbrMesure = 0;
-        int valnum = 0;
-        int valdenom = 0;
-        string nom = null;
+       public static int nbrMesure = 0;
+        public static int valnum = 0;
+       public static int valdenom = 0;
+        public static string nom = null;
+        static Mapartition partition=  new Mapartition();
+
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
 
-            Partition partition = new Partition();
+           
             base.OnCreate(savedInstanceState);
 
             // Create your application here
@@ -40,20 +44,26 @@ namespace MaestroPad
                 int toutestok = 0;
                 // pour recuperer le nom de la partition 
                 nom = nompartition.Text.ToString();
+                partition.setNompartition(nom);
+
                 string mesure = nombreMesures.Text.ToString();
+
 
                 //convertir le nombre de mesure en int
                 if(mesure != string.Empty && mesure != null)
                 {
                     nbrMesure = Convert.ToInt32(mesure);
+                    partition.setNombredemesure(nbrMesure);
                 }
                 if (numerateur.Text.ToString() != string.Empty && numerateur.Text.ToString() != null)
                 {
                     valnum = Convert.ToInt32(numerateur.Text.ToString());
+                    partition.SetValeurNumerateur(valnum);
                 }
                 if(denominateur.Text.ToString() != string.Empty && denominateur.Text.ToString() != null)
                 {
                     valdenom = Convert.ToInt32(denominateur.Text.ToString());
+                    partition.setValeurDenominateur(valdenom);
                 }
                 
                 
@@ -99,32 +109,39 @@ namespace MaestroPad
                     }
                     else
                     {
+                       
                         var intent = new Intent(this, typeof(Parametragesecondaire));
-                        StartActivity(intent);
-                    }
-                     
+                        intent.PutExtra("nom", nompartition.Text.ToString());
+                        intent.PutExtra("nombresdemesure", nombreMesures.Text.ToString());
+                        intent.PutExtra("numerateur", numerateur.Text.ToString());
+                        intent.PutExtra("denominateur", denominateur.Text.ToString());
+                        //intent.PutExtra("partition", partition);
+                       StartActivity(intent);
+                   }
 
-                  }
 
-              
-                
-            };
+                 }
 
-        }
-        private void control()
-        {
-            //
-            string message = string.Empty;
 
-            //
-           // if (tempoval != 0)
-             //   message = "Etape suivante";
-           // else
-                message = "veuillez renseinger le ou les champs avant de continuer";
 
-            //
-            Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
+           };
 
-        }
-    }
+       }
+       private void control()
+       {
+           //
+           string message = string.Empty;
+
+           //
+          // if (tempoval != 0)
+            //   message = "Etape suivante";
+          // else
+               message = "veuillez renseinger le ou les champs avant de continuer";
+
+           //
+           Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
+
+       }
+   }
 }
+ 
