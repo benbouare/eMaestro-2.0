@@ -7,6 +7,8 @@ using Android.Widget;
 using Android.Media.Midi;
 using System.Threading;
 using System.Collections.Concurrent;
+using Java.Interop;
+using static Java.Interop.JniEnvironment;
 
 namespace MaestroPad
 {
@@ -19,7 +21,7 @@ namespace MaestroPad
         public static int tempoval = 1;
         public static int indicateur = 0;
         public static int VELOCITY = 0;
-        public static int valnote = 0;
+        public static int valnote = 1;
         public static int valnumerateur=0;
         public static int valdenominateur = 0;
         public static int nombresdemesure = 0;
@@ -28,8 +30,23 @@ namespace MaestroPad
 
         Thread mythread;
         
-
-        //  int compteurTemps = 0;
+        [Export("ModeMesure_onclick")]
+        0 References 
+        public void ModeMesure_onclick(ViewAnimator v)
+        {
+            switch (v.Id)
+            {
+                case Resource.Id.Rien:
+                    valnote = 1;
+                    break;
+                case Resource.Id.Binaire:
+                    valnote = 2;
+                    break;
+                case Resource.Id.Ternaire:
+                    valnote = 3;
+                    break;
+            }
+        }
 
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -60,7 +77,11 @@ namespace MaestroPad
             RadioGroup choixnotes = FindViewById<RadioGroup>(Resource.Id.notedutempo);
             RadioButton choixnote = FindViewById<RadioButton>(choixnotes.CheckedRadioButtonId);
 
-           
+            // choix du mode de la mesure 
+            RadioGroup choixmode = FindViewById<RadioGroup>(Resource.Id.ModeMesure);
+            RadioButton modechoisi = FindViewById<RadioButton>(choixmode.CheckedRadioButtonId);
+
+
 
 
 
@@ -78,6 +99,7 @@ namespace MaestroPad
                 string tmp = tempo.Text;
                 if ((tempoval = Convert.ToInt32(tmp.ToString())) != 0)
                 {
+
                     indicateur++;
                     tempoval = (60000 / tempoval);
                     mythread.Start();
@@ -139,7 +161,7 @@ namespace MaestroPad
                 else
                 {
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, valnumerateur, temps - 1);
+                    monenvoi.noteOff(2, valnote, temps - 1);
                     monenvoi.noteOn(1, valnumerateur, temps);
 
                     // verif_tempo();
@@ -148,10 +170,10 @@ namespace MaestroPad
                 if (temps > valnumerateur)
                 {
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, valnumerateur, temps - 1);
+                    monenvoi.noteOff(2, valnote, temps - 1);
                     monenvoi.noteOn(1, valnumerateur, temps);
                     Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, valnumerateur, temps);
+                    monenvoi.noteOff(2, valnote, temps);
                     temps = 1;
 
                 }

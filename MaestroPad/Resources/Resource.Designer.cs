@@ -44,11 +44,20 @@ namespace MaestroPad
 		public partial class Id
 		{
 			
+			// aapt resource value: 0x7f04001c
+			public const int Binaire = 2130968604;
+			
 			// aapt resource value: 0x7f040001
 			public const int ChargerPartition = 2130968577;
 			
 			// aapt resource value: 0x7f04000d
 			public const int Home = 2130968589;
+			
+			// aapt resource value: 0x7f040019
+			public const int Mode = 2130968601;
+			
+			// aapt resource value: 0x7f04001a
+			public const int ModeMesure = 2130968602;
 			
 			// aapt resource value: 0x7f04000e
 			public const int Notetempo = 2130968590;
@@ -56,11 +65,17 @@ namespace MaestroPad
 			// aapt resource value: 0x7f040000
 			public const int NouvellePartition = 2130968576;
 			
+			// aapt resource value: 0x7f04001b
+			public const int Rien = 2130968603;
+			
+			// aapt resource value: 0x7f04001d
+			public const int Ternaire = 2130968605;
+			
 			// aapt resource value: 0x7f040017
 			public const int Valtempo = 2130968599;
 			
-			// aapt resource value: 0x7f040019
-			public const int back = 2130968601;
+			// aapt resource value: 0x7f04001e
+			public const int back = 2130968606;
 			
 			// aapt resource value: 0x7f04000c
 			public const int createpartition = 2130968588;
@@ -110,8 +125,8 @@ namespace MaestroPad
 			// aapt resource value: 0x7f040016
 			public const int radioButton8 = 2130968598;
 			
-			// aapt resource value: 0x7f04001a
-			public const int send = 2130968602;
+			// aapt resource value: 0x7f04001f
+			public const int send = 2130968607;
 			
 			// aapt resource value: 0x7f040018
 			public const int tempovaleur = 2130968600;

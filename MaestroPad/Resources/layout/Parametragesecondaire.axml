@@ -58,15 +58,46 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Valtempo" />
-    <EditText
+    <EditText xmlns:tools="http://schemas.android.com/tools"
         android:inputType="number"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/tempovaleur"
         android:numeric="integer"
         android:editable="true"
-        xmlns:tools="http://schemas.android.com/tools"
         tools:visibility="visible" />
+    <TextView
+        android:text="Mode de la Mesure"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Mode" />
+    <RadioGroup
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ModeMesure">
+        <RadioButton
+          android:onClick="ModeMesure_onclick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="Rien"
+            android:id="@+id/Rien" />
+      <RadioButton
+        android:onClick="ModeMesure_onclick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Binaire"
+            android:id="@+id/Binaire" />
+      <RadioButton
+        android:onClick="ModeMesure_onclick"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ternaire"
+            android:id="@+id/Ternaire" />
+    </RadioGroup>
     <GridLayout
         android:layout_width="match_parent"
         android:layout_height="162.5dp"
