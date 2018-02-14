@@ -22,7 +22,7 @@ namespace MaestroPad
         EnvoiViaMidi monenvoi;
         private MidiManager manager;
         public static int tempoval = 1;
-        public static int indicateur = 0;
+        public static int indicateur = 1;
         public static int VELOCITY = 0;
         public static int valnote = 1;
         public static int valnumerateur=0;
@@ -41,13 +41,13 @@ namespace MaestroPad
             switch (v.Id)
             {
                 case Resource.Id.Rien:
-                    valnote = 1;
+                    valnote = 25;
                     break;
                 case Resource.Id.Binaire:
-                    valnote = 2;
+                    valnote = 26;
                     break;
                 case Resource.Id.Ternaire:
-                    valnote = 3;
+                    valnote = 27;
                     break;
             }
         }
@@ -105,11 +105,28 @@ namespace MaestroPad
 
                     indicateur++;
                     tempoval = (60000 / tempoval);
-                    mythread.Start();
+                    if(indicateur % 2 == 0)
+                    {
+                        if (indicateur == 2)
+                        {
+                            mythread.Start();//lancer
+                            
+                        }
+                        else
+                        {
+                            mythread.Resume();  //reprendre après pause
+                        }
+                       
+                    }
+                    else
+                    {
+                        mythread.Suspend(); // mettre pause
+                    }
+                    
                 }
                 else
                 {
-                    indicateur = 0;
+                    indicateur = 1;
                     verif_tempo();
                 }
 
@@ -154,33 +171,118 @@ namespace MaestroPad
         {
 
             int temps = 1;
-            while (Thread.CurrentThread.IsAlive)
+            if (valnote == 25)//rien
             {
-                //envoi  noteON et noteOFF
-                if (temps == 1)
+                while (Thread.CurrentThread.IsAlive)
                 {
-                    monenvoi.noteOn(1, valnumerateur, temps);
-                }
-                else
-                {
-                    Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, valnote, temps - 1);
-                    monenvoi.noteOn(1, valnumerateur, temps);
+                    //envoi  noteON et noteOFF
+                    if (temps == 1)
+                    {
+                        monenvoi.noteOn(1, valnumerateur, valnote);
+                    }
+                    else
+                    {
+                        Thread.Sleep(tempoval);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        monenvoi.noteOn(1, valnumerateur, temps);
 
-                    // verif_tempo();
-                }
-                temps++;
-                if (temps > valnumerateur)
-                {
-                    Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, valnote, temps - 1);
-                    monenvoi.noteOn(1, valnumerateur, temps);
-                    Thread.Sleep(tempoval);
-                    monenvoi.noteOff(2, valnote, temps);
-                    temps = 1;
+                        // verif_tempo();
+                    }
+                    temps++;
+                    if (temps > valnumerateur-1)
+                    {
+                        Thread.Sleep(tempoval);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+                        Thread.Sleep(tempoval);
+                        monenvoi.noteOff(2, valnote, temps);
+                        temps = 1;
 
+                    }
                 }
             }
+            if (valnote == 26)//binaire
+            {
+                while (Thread.CurrentThread.IsAlive)
+                {
+                    //envoi  noteON et noteOFF
+                    if (temps == 1)
+                    {
+                        monenvoi.noteOn(1, valnumerateur, valnote);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+                    }
+                    else
+                    {
+                        Thread.Sleep(tempoval / 2);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        Thread.Sleep(tempoval / 2);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+
+                        // verif_tempo();
+                    }
+                    temps++;
+                    if (temps > valnumerateur - 1)
+                    {
+                        Thread.Sleep(tempoval / 2);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        Thread.Sleep(tempoval / 2);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+                        Thread.Sleep(tempoval / 2);
+                        monenvoi.noteOff(2, valnote, temps);
+                        Thread.Sleep(tempoval / 2);
+                        monenvoi.noteOff(2, valnote, temps);
+                        temps = 1;
+
+                    }
+                }
+                
+            }
+            if(valnote == 27)//ternaire
+            {
+                while (Thread.CurrentThread.IsAlive)
+                {
+                    //envoi  noteON et noteOFF
+                    if (temps == 1)
+                    {
+                        monenvoi.noteOn(1, valnumerateur, valnote);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+                    }
+                    else
+                    {
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+
+                        // verif_tempo();
+                    }
+                    temps++;
+                    if (temps > valnumerateur - 1)
+                    {
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps - 1);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, valnote, temps);
+                        temps = 1;
+
+                    }
+                }
+            }
+            
 
 
         }
