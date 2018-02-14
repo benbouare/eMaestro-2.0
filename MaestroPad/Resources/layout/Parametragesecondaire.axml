@@ -79,20 +79,20 @@
         android:layout_height="wrap_content"
         android:id="@+id/ModeMesure">
         <RadioButton
-          android:onClick="ModeMesure_onclick"
+            android:onClick="ModeMesure_onclick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
             android:text="Rien"
             android:id="@+id/Rien" />
-      <RadioButton
-        android:onClick="ModeMesure_onclick"
+        <RadioButton
+            android:onClick="ModeMesure_onclick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Binaire"
             android:id="@+id/Binaire" />
-      <RadioButton
-        android:onClick="ModeMesure_onclick"
+        <RadioButton
+            android:onClick="ModeMesure_onclick"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ternaire"

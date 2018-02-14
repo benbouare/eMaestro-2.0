@@ -110,7 +110,7 @@ namespace MaestroPad
                     else
                     {
                        
-                        var intent = new Intent(this, typeof(Parametragesecondaire));
+                        Intent intent = new Intent(this, typeof(Parametragesecondaire));
                         intent.PutExtra("nom", nompartition.Text.ToString());
                         intent.PutExtra("nombresdemesure", nombreMesures.Text.ToString());
                         intent.PutExtra("numerateur", numerateur.Text.ToString());

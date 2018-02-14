@@ -6,9 +6,12 @@ using Android.OS;
 using Android.Widget;
 using Android.Media.Midi;
 using System.Threading;
-using System.Collections.Concurrent;
 using Java.Interop;
+using System.Reflection.Emit;
 using static Java.Interop.JniEnvironment;
+using Java.Lang.Ref;
+using Java.Util.Prefs;
+using Android.Views;
 
 namespace MaestroPad
 {
@@ -29,10 +32,11 @@ namespace MaestroPad
 
 
         Thread mythread;
-        
+
+
+
         [Export("ModeMesure_onclick")]
-        0 References 
-        public void ModeMesure_onclick(ViewAnimator v)
+        public void ModeMesure_onclick(View v)
         {
             switch (v.Id)
             {
@@ -48,11 +52,10 @@ namespace MaestroPad
             }
         }
 
-
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle bundle)
         {
             
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(bundle);
             SetContentView(Resource.Layout.Parametragesecondaire);
 
             //recuperaion des données de l'étape precedente 
@@ -181,5 +184,6 @@ namespace MaestroPad
 
 
         }
+       
     }
 }
