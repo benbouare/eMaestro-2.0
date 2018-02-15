@@ -14,7 +14,7 @@ namespace MaestroPad
         public static int valnum = 0;
        public static int valdenom = 0;
         public static string nom = null;
-        static Mapartition partition=  new Mapartition();
+       // static Mapartition partition=  new Mapartition();
 
 
 
@@ -44,7 +44,7 @@ namespace MaestroPad
                 int toutestok = 0;
                 // pour recuperer le nom de la partition 
                 nom = nompartition.Text.ToString();
-                partition.setNompartition(nom);
+               // partition.setNompartition(nom);
 
                 string mesure = nombreMesures.Text.ToString();
 
@@ -53,17 +53,17 @@ namespace MaestroPad
                 if(mesure != string.Empty && mesure != null)
                 {
                     nbrMesure = Convert.ToInt32(mesure);
-                    partition.setNombredemesure(nbrMesure);
+                   // partition.setNombredemesure(nbrMesure);
                 }
                 if (numerateur.Text.ToString() != string.Empty && numerateur.Text.ToString() != null)
                 {
                     valnum = Convert.ToInt32(numerateur.Text.ToString());
-                    partition.SetValeurNumerateur(valnum);
+                   // partition.SetValeurNumerateur(valnum);
                 }
                 if(denominateur.Text.ToString() != string.Empty && denominateur.Text.ToString() != null)
                 {
                     valdenom = Convert.ToInt32(denominateur.Text.ToString());
-                    partition.setValeurDenominateur(valdenom);
+                  //  partition.setValeurDenominateur(valdenom);
                 }
                 
                 

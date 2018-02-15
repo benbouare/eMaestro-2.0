@@ -19,6 +19,8 @@ namespace MaestroPad
          int valeurnumerateur = 0;
          int valeurdenominateur = 0;
          int valeurdutempo = 0;
+        int numerodelamesure = 0;
+
 
         public  void setNompartition(string nom)
         {
@@ -61,6 +63,14 @@ namespace MaestroPad
         public int GEtTempo()
         {
             return valeurdutempo;
+        }
+        public void setNumerodelamesure(int mesure)
+        {
+            numerodelamesure = mesure;
+        }
+        public int getNumerodelamesure()
+        {
+            return numerodelamesure;
         }
     }
 
