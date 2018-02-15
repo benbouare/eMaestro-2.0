@@ -179,6 +179,7 @@ namespace MaestroPad
                     if (temps == 1)
                     {
                         monenvoi.noteOn(1, valnumerateur, valnote);
+                        monenvoi.noteOn(1, valnumerateur, temps);
                     }
                     else
                     {
