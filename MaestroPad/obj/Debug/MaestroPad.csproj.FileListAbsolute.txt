@@ -1,0 +1,2 @@
+C:\Users\Salifou\Documents\GitHub\eMaestro-2.0\MaestroPad\obj\Debug\MaestroPad.csprojResolveAssemblyReference.cache
+C:\Users\Salifou\Documents\GitHub\eMaestro-2.0\MaestroPad\obj\Debug\MaestroPad.csproj.CoreCompileInputs.cache
