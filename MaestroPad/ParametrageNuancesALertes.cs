@@ -19,6 +19,7 @@ namespace MaestroPad
     {
         int valeurdelanuance = 0;
         int valeurcouleurAlerte = 0;
+        int valeurdelaReprise = 0;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -34,12 +35,27 @@ namespace MaestroPad
 
             //liste deroulante pour les Alertes
             var Alerte = FindViewById<Spinner>(Resource.Id.Alertes);
-            Alerte.Prompt = "Selectionner la nuance";
+            Alerte.Prompt = "Selectionner la alertes";
             Alerte.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(Alerte_ItemSelected);
             var adapter2 = ArrayAdapter.CreateFromResource(this, Resource.Array.ListeCouleur, Android.Resource.Layout.SimpleSpinnerItem);
             adapter2.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             LaNuanace.Adapter = adapter2;
+
+            //Liste deroulante des reprises
+            var Reprises = FindViewById<Spinner>(Resource.Id.ListeReprises);
+            Reprises.Prompt = "Selectionner la reprises";
+            Reprises.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(Reprises_ItemSelected);
+            var adapter3 = ArrayAdapter.CreateFromResource(this, Resource.Array.ListeCouleur, Android.Resource.Layout.SimpleSpinnerItem);
+            adapter3.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+            Reprises.Adapter = adapter3;
         }
+
+        private void Reprises_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
+        {
+            var repriseselected = sender as Spinner;
+            valeurdelaReprise = (int)repriseselected.GetItemAtPosition(e.Position);
+        }
+
         //event de Alerte
         private void Alerte_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {

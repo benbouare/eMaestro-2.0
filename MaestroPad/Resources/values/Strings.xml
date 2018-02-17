@@ -21,4 +21,14 @@
     <item>Couleur7</item>
     <item>Couleur8</item>
   </string-array>
+  <string-array name ="ListeReprise">
+    <item>ChoixReprise1</item>
+    <item>ChoixReprise2</item>
+    <item>ChoixReprise3</item>
+    <item>ChoixReprise4</item>
+    <item>ChoixReprise5</item>
+    <item>ChoixReprise6</item>
+    <item>ChoixReprise7</item>
+    <item>ChoixReprise8</item>
+  </string-array>
 </resources>
