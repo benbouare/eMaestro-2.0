@@ -186,7 +186,7 @@ namespace MaestroPad
                     else
                     {
                         Thread.Sleep(tempoval);
-                        monenvoi.noteOff(2, 0, temps - 1);
+                        monenvoi.noteOff(2, 1, temps - 1);
                         monenvoi.noteOn(1, valnumerateur, temps);
 
                         // verif_tempo();
@@ -195,10 +195,14 @@ namespace MaestroPad
                     if (temps > valnumerateur-1)
                     {
                         Thread.Sleep(tempoval);
-                        monenvoi.noteOff(2, 0, temps - 1);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-                        Thread.Sleep(tempoval);
-                        monenvoi.noteOff(2, 0, temps);
+                        monenvoi.noteOff(2, 1, temps - 1);
+                        if (valnumerateur != 1)
+                        {
+                            monenvoi.noteOn(1, valnumerateur, temps);
+                            Thread.Sleep(tempoval);
+                            monenvoi.noteOff(2, 1, temps);
+                        }
+                       
                         temps = 1;
 
                     }
@@ -217,9 +221,9 @@ namespace MaestroPad
                     else
                     {
                         Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, temps - 2, temps - 1);
+                        monenvoi.noteOff(2, 1, temps - 1);
                         Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, temps - 1, temps - 1);
+                        monenvoi.noteOff(2, 2, temps - 1);
                         monenvoi.noteOn(1, valnumerateur, temps);
 
                         // verif_tempo();
@@ -228,14 +232,18 @@ namespace MaestroPad
                     if (temps > valnumerateur - 1)
                     {
                         Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, temps - 2, temps - 1);
+                        monenvoi.noteOff(2, 1, temps - 1);
                         Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, temps - 1, temps - 1);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-                        Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, temps - 1, temps);
-                        Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, temps , temps);
+                        monenvoi.noteOff(2, 2, temps - 1);
+                        if (valnumerateur != 1)
+                        {
+                            monenvoi.noteOn(1, valnumerateur, temps);
+                            Thread.Sleep(tempoval / 2);
+                            monenvoi.noteOff(2, 1, temps);
+                            Thread.Sleep(tempoval / 2);
+                            monenvoi.noteOff(2, 2, temps);
+                        }
+                       
                         temps = 1;
 
                     }
@@ -244,7 +252,7 @@ namespace MaestroPad
             }
             if(valnote == 27)//ternaire
             {
-                int tmp = 2; // pour recuperer la dernière valeur du noteoff à partir du temps 
+               // int tmp = 2; // pour recuperer la dernière valeur du noteoff à partir du temps 
                 int ind = 0;
                 valnumerateur = valnumerateur / 3;
               
@@ -256,11 +264,11 @@ namespace MaestroPad
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
                         Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, temps - 1, temps );
+                        monenvoi.noteOff(2, 1, temps );
                         Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, temps , temps );
+                        monenvoi.noteOff(2, 2 , temps );
                         Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, temps +1 , temps );
+                        monenvoi.noteOff(2, 3 , temps );
                         ind++;
                     }
                     else
@@ -268,13 +276,13 @@ namespace MaestroPad
                            monenvoi.noteOn(1, valnumerateur, temps);
  
                             Thread.Sleep(tempoval / 3);
-                            monenvoi.noteOff(2, tmp, temps);
+                            monenvoi.noteOff(2, 1, temps);
                             Thread.Sleep(tempoval / 3);
-                            monenvoi.noteOff(2, tmp + 1, temps);
+                            monenvoi.noteOff(2, 2, temps);
                             Thread.Sleep(tempoval / 3);
-                            monenvoi.noteOff(2, tmp + 2, temps);
+                            monenvoi.noteOff(2, 3, temps);
 
-                           tmp = tmp + 2;
+                          // tmp = tmp + 2;
                         ind++;
 
                     }
@@ -285,7 +293,7 @@ namespace MaestroPad
                     else
                     {
                         temps = 1;
-                        tmp = 2;
+                     //   tmp = 2;
                         ind = 0;
                     }
                     

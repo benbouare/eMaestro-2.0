@@ -58,6 +58,7 @@
     <Compile Include="EnvoiViaMidi.cs" />
     <Compile Include="InfosPorts.cs" />
     <Compile Include="Mapartition.cs" />
+    <Compile Include="ParametrageNuancesALertes.cs" />
     <Compile Include="Parametragesecondaire.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Compile>
@@ -76,6 +77,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\Parametragesecondaire.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\NuancesAlerte.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
