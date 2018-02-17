@@ -1,0 +1,4 @@
+BouttonEmaestroS.MainActivity, BouttonEmaestroS;md53a232fa84dd2972e4282a91a4d1beb94.MainActivity
+BouttonEmaestroS.MainActivity, BouttonEmaestroS, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null;md53a232fa84dd2972e4282a91a4d1beb94.MainActivity
+BouttonEmaestroS.MainActivity;md53a232fa84dd2972e4282a91a4d1beb94.MainActivity
+bouttonemaestros.MainActivity;md53a232fa84dd2972e4282a91a4d1beb94.MainActivity
