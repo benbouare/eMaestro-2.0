@@ -43,6 +43,10 @@ namespace MaestroPad
             midiCommand(0x80 + channel, note, velocity);
 
         }
+        public void controlChange(int channel,int controllernumber,int controllervalue)
+        {
+            midiCommand(0xB0 + channel, controllernumber, controllervalue);
+        }
 
         private void midiCommand(int status, int data1, int data2)
         {

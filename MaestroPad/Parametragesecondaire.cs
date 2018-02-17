@@ -90,7 +90,7 @@ namespace MaestroPad
 
 
 
-
+            //instanciation de la classe envoi
             monenvoi = new EnvoiViaMidi(manager, this);
 
             back.Click += (sender, e) =>
