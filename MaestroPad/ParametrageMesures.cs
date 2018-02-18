@@ -28,12 +28,15 @@ namespace MaestroPad
         public static int nombresdemesure = 0;
         string nom = null;
         ArrayList tabdeboutons = new ArrayList();
+        long[] nuances;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //reception du nombre de mesures 
             string mesure = Intent.GetStringExtra("nombresdemesure") ?? "nombresdemesure not available";
             nombresdemesure = Convert.ToInt32(mesure);
+            nuances = new long[nombresdemesure];
+            nuances[ParametrageNuancesALertes.numeroMesure] = ParametrageNuancesALertes.valeurdelanuance;
 
             base.OnCreate(savedInstanceState);
             createLayoutDynamically(nombresdemesure);//crée les buttons
@@ -49,12 +52,12 @@ namespace MaestroPad
             string mode = Intent.GetStringExtra("valeurdumode") ?? "valeurdumode not available";
             valnote = Convert.ToInt32(mode);
 
-
+            
           
         }
         private void createLayoutDynamically(int n)
         {
-            int tmp = n + 1;
+            int tmp = n + 2;
             ScrollView sv = new ScrollView(this);
             LinearLayout layout = new LinearLayout(this);
             layout.Orientation = Orientation.Vertical;
@@ -63,16 +66,31 @@ namespace MaestroPad
             {
                 Button myButton = new Button(this);
                 myButton.Id = i;
-
-                if (i < tmp)
+                tabdeboutons.Add(myButton);
+                myButton.Click += delegate 
                 {
-                    myButton.Text = " " + myButton.Id;
+                    formulaire(i);
+                };
+
+            if (i < tmp-1)
+                {
+                    myButton.Text = " Mesure " + myButton.Id;
                 }
                 else
                 {
-                    myButton.Text = "Enregistrer";
-                    myButton.SetBackgroundColor(Color.Green);
-                    myButton.SetTextColor(Color.Black);
+                    if (i == tmp - 1)
+                    {
+                        myButton.Text = "Enregistrer";
+                        myButton.SetBackgroundColor(Color.Green);
+                        myButton.SetTextColor(Color.Black);
+                    }
+                    else
+                    {
+                        myButton.Text = "Retour";
+                       // myButton.SetBackgroundColor(Color.Blue);
+                       // myButton.SetTextColor(Color.Blue);
+                    }
+                    
 
 
                 }
@@ -81,7 +99,14 @@ namespace MaestroPad
 
             }
             this.SetContentView(sv);
+          
 
+        }
+        private void formulaire(int numeroMesure)
+        {
+            Intent intent = new Intent(this, typeof(ParametrageNuancesALertes));
+            intent.PutExtra("id_bouton", numeroMesure.ToString());
+            StartActivity(intent);
         }
     }
 }
