@@ -17,10 +17,10 @@ namespace MaestroPad
     [Activity(Label = "ParametrageNuancesALertes")]
     public class ParametrageNuancesALertes : Activity
     {
-      public static  long valeurdelanuance ;
-     public  static  long valeurcouleurAlerte ;
-     public static   long valeurdelaReprise ;
-     public static   int numeroMesure = 0;
+      public static  long valeurdelanuance = -1 ;
+     public  static  long valeurcouleurAlerte = 0 ;
+     public static   long valeurdelaReprise = 0 ;
+     public static   long numeroMesure = 0;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -32,22 +32,27 @@ namespace MaestroPad
             Button retour = FindViewById<Button>(Resource.Id.AnnulerMesure);
 
             //recuperation du numero de la mesure
-           // final Intent intent = getIntent();
+            // final Intent intent = getIntent();
 
-
+            String mesure = Intent.GetStringExtra("id_bouton") ?? "echec de recuperation du numero de la mesure";
+            numeroMesure = Convert.ToInt64(mesure);
 
             // event des bouttons
             valider.Click += delegate
             {
-                String message = Intent.GetStringExtra("id_bouton") ?? "echec de recuperation du numero de la mesure";
-                numeroMesure = Convert.ToInt32(message);
+             
+                Intent myIntent = new Intent(this, typeof(ParametrageMesures));
+                myIntent.PutExtra("numero_mesure", mesure);
+                myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
+                SetResult(Result.Ok, myIntent);
+                Finish();
 
             };
             //Liste deroulante pour les nuances
             var LaNuanace = FindViewById<Spinner>(Resource.Id.ListeNuance);
-            LaNuanace.Prompt = "SElectionner la nuance";
+            LaNuanace.Prompt = "Selectionner la nuance";
             LaNuanace.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(Nuance_ItemSelected);
-            var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.ListeNuance, Android.Resource.Layout.SimpleSpinnerItem);
+            var adapter = ArrayAdapter.CreateFromResource(this, Resource.Array.ListeNuances, Android.Resource.Layout.SimpleSpinnerItem);
             adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             LaNuanace.Adapter = adapter;
 
@@ -57,7 +62,7 @@ namespace MaestroPad
             Alerte.ItemSelected += new EventHandler<AdapterView.ItemSelectedEventArgs>(Alerte_ItemSelected);
             var adapter2 = ArrayAdapter.CreateFromResource(this, Resource.Array.ListeCouleur, Android.Resource.Layout.SimpleSpinnerItem);
             adapter2.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-            LaNuanace.Adapter = adapter2;
+            Alerte.Adapter = adapter2;
 
             //Liste deroulante des reprises
             var Reprises = FindViewById<Spinner>(Resource.Id.ListeReprises);
@@ -67,7 +72,7 @@ namespace MaestroPad
             adapter3.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
             Reprises.Adapter = adapter3;
         }
-
+        //event reprises
         private void Reprises_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
             var repriseselected = sender as Spinner;

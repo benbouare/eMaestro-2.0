@@ -35,7 +35,7 @@ namespace MaestroPad
 			public const int ListeCouleur = 2130968577;
 			
 			// aapt resource value: 0x7f040000
-			public const int ListeNuance = 2130968576;
+			public const int ListeNuances = 2130968576;
 			
 			// aapt resource value: 0x7f040002
 			public const int ListeReprise = 2130968578;

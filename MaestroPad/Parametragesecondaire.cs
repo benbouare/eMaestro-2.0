@@ -31,6 +31,7 @@ namespace MaestroPad
         public static int valdenominateur = 0;
         public static int nombresdemesure = 0;
         string  nom = null;
+        string tmp = null;
 
 
         Thread mythread;
@@ -101,24 +102,36 @@ namespace MaestroPad
             // MainActivity nvll = new MainActivity();
             Suivant.Click += (sender, e) =>
             {
-                string tmp = tempo.Text;
-                if ((tempoval = Convert.ToInt32(tmp.ToString())) != 0)
+                tmp = tempo.Text;
+                if (tmp != null && tmp != string.Empty)
                 {
+                   if( (tempoval = Convert.ToInt32(tmp.ToString())) != 0)
+                    {
+                        indicateur++;
+                        tempoval = (60000 / tempoval);
 
-                    indicateur++;
-                    tempoval = (60000 / tempoval);
+                        //ouvrir l'activity de ParametrageMesure et envoyer ces informations 
+                        Intent intent = new Intent(this, typeof(ParametrageMesures));
+                        intent.PutExtra("nom", nom);
+                        intent.PutExtra("nombresdemesure", mesure);
+                        intent.PutExtra("numerateur", numerateur);
+                        intent.PutExtra("denominateur", denominateur);
+                        intent.PutExtra("valeurdutempo", tempoval.ToString());
+                        intent.PutExtra("valeurdumode", valnote.ToString());
+                        //intent.PutExtra("partition", partition);
+                        StartActivity(intent);
+                    }
+                    else
+                    {
+                        control();
+                    }
 
-                //ouvrir l'activity de ParametrageMesure et envoyer ces informations 
-                Intent intent = new Intent(this, typeof(ParametrageMesures));
-                intent.PutExtra("nom", nom);
-                intent.PutExtra("nombresdemesure", mesure);
-                intent.PutExtra("numerateur", numerateur);
-                intent.PutExtra("denominateur", denominateur);
-                intent.PutExtra("valeurdutempo", tempoval.ToString());
-                intent.PutExtra("valeurdumode", valnote.ToString());
-                //intent.PutExtra("partition", partition);
-                StartActivity(intent);
+              
 
+                }
+                else
+                {
+                    control();
                 }
 
 
@@ -150,7 +163,7 @@ namespace MaestroPad
             string message = string.Empty;
 
 
-            if (tempoval != 0)
+            if (tempoval != 0 && tmp != null)
                 message = "Etape suivante";
             else
                 message = "veuillez renseinger le ou les champs avant de continuer";

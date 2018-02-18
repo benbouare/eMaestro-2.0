@@ -27,8 +27,10 @@ namespace MaestroPad
         public static int valdenominateur = 0;
         public static int nombresdemesure = 0;
         string nom = null;
-        ArrayList tabdeboutons = new ArrayList();
-        long[] nuances;
+        string num = null;
+        string nua = null;
+       // ArrayList tabdeboutons = new ArrayList();
+        static long[] nuances;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -36,7 +38,11 @@ namespace MaestroPad
             string mesure = Intent.GetStringExtra("nombresdemesure") ?? "nombresdemesure not available";
             nombresdemesure = Convert.ToInt32(mesure);
             nuances = new long[nombresdemesure];
-            nuances[ParametrageNuancesALertes.numeroMesure] = ParametrageNuancesALertes.valeurdelanuance;
+            for(int i=0; i < nombresdemesure; i++)
+            {
+                nuances[i] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
+            }
+            
 
             base.OnCreate(savedInstanceState);
             createLayoutDynamically(nombresdemesure);//crée les buttons
@@ -55,6 +61,18 @@ namespace MaestroPad
             
           
         }
+        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
+        {
+            base.OnActivityResult(requestCode, resultCode, data);
+            if (resultCode == Result.Ok)
+            {
+               num  = data.GetStringExtra("numero_mesure");
+               nua = data.GetStringExtra("choix_nuance");
+                nuances[Convert.ToInt32(num)-1] = Convert.ToInt64(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionner 
+                Toast.MakeText(ApplicationContext, nuances[Convert.ToInt32(num) - 1].ToString(), ToastLength.Long).Show();
+
+            }
+        }
         private void createLayoutDynamically(int n)
         {
             int tmp = n + 2;
@@ -66,10 +84,13 @@ namespace MaestroPad
             {
                 Button myButton = new Button(this);
                 myButton.Id = i;
-                tabdeboutons.Add(myButton);
                 myButton.Click += delegate 
                 {
-                    formulaire(i);
+                    if(myButton.Id < tmp - 1)
+                    {
+                        formulaire(i);
+                    }
+                    
                 };
 
             if (i < tmp-1)
@@ -86,7 +107,7 @@ namespace MaestroPad
                     }
                     else
                     {
-                        myButton.Text = "Retour";
+                        myButton.Text = " Retour ";
                        // myButton.SetBackgroundColor(Color.Blue);
                        // myButton.SetTextColor(Color.Blue);
                     }
@@ -106,7 +127,7 @@ namespace MaestroPad
         {
             Intent intent = new Intent(this, typeof(ParametrageNuancesALertes));
             intent.PutExtra("id_bouton", numeroMesure.ToString());
-            StartActivity(intent);
+            StartActivityForResult(intent,0);
         }
     }
 }

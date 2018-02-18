@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="app_name">MaestroPad</string>
-  <string-array name ="ListeNuance">
+  <string-array name ="ListeNuances">
     <item>Pianississimo</item>
     <item>Pianissimo</item>
     <item>Piano</item>
