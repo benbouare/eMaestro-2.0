@@ -58,6 +58,7 @@
     <Compile Include="EnvoiViaMidi.cs" />
     <Compile Include="InfosPorts.cs" />
     <Compile Include="Mapartition.cs" />
+    <Compile Include="ParametrageMesures.cs" />
     <Compile Include="ParametrageNuancesALertes.cs" />
     <Compile Include="Parametragesecondaire.cs">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

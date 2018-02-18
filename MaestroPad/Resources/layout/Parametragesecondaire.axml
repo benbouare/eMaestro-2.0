@@ -106,7 +106,7 @@
             android:text="Annuler"
             android:id="@+id/back" />
         <Button
-            android:text="Envoyer"
-            android:id="@+id/send" />
+            android:text="Suivant"
+            android:id="@+id/Next" />
     </GridLayout>
 </LinearLayout>

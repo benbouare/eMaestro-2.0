@@ -26,7 +26,7 @@ namespace MaestroPad
         public static int tempoval = 1;
         public static int indicateur = 1;
         public static int VELOCITY = 0;
-        public static int valnote = 1;
+        public static int valnote = 1;//donne la valeur du mode choisi
         public static int valnumerateur=0;
         public static int valdenominateur = 0;
         public static int nombresdemesure = 0;
@@ -75,7 +75,7 @@ namespace MaestroPad
             
             // Create your application here
             Button back = FindViewById<Button>(Resource.Id.back);
-            Button envoyer = FindViewById<Button>(Resource.Id.send);
+            Button Suivant = FindViewById<Button>(Resource.Id.Next);
             EditText tempo = FindViewById<EditText>(Resource.Id.tempovaleur);
 
             // choix de la note des BPM
@@ -99,7 +99,7 @@ namespace MaestroPad
                 StartActivity(intent);
             };
             // MainActivity nvll = new MainActivity();
-            envoyer.Click += (sender, e) =>
+            Suivant.Click += (sender, e) =>
             {
                 string tmp = tempo.Text;
                 if ((tempoval = Convert.ToInt32(tmp.ToString())) != 0)
@@ -107,29 +107,18 @@ namespace MaestroPad
 
                     indicateur++;
                     tempoval = (60000 / tempoval);
-                    if(indicateur % 2 == 0)
-                    {
-                        if (indicateur == 2)
-                        {
-                            mythread.Start();//lancer
-                            
-                        }
-                        else
-                        {
-                            mythread.Resume();  //reprendre après pause
-                        }
-                       
-                    }
-                    else
-                    {
-                        mythread.Suspend(); // mettre pause
-                    }
-                    
-                }
-                else
-                {
-                    indicateur = 1;
-                    verif_tempo();
+
+                //ouvrir l'activity de ParametrageMesure et envoyer ces informations 
+                Intent intent = new Intent(this, typeof(ParametrageMesures));
+                intent.PutExtra("nom", nom);
+                intent.PutExtra("nombresdemesure", mesure);
+                intent.PutExtra("numerateur", numerateur);
+                intent.PutExtra("denominateur", denominateur);
+                intent.PutExtra("valeurdutempo", tempoval.ToString());
+                intent.PutExtra("valeurdumode", valnote.ToString());
+                //intent.PutExtra("partition", partition);
+                StartActivity(intent);
+
                 }
 
 

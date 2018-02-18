@@ -93,6 +93,9 @@ namespace MaestroPad
 			// aapt resource value: 0x7f050015
 			public const int ModeMesure = 2131034133;
 			
+			// aapt resource value: 0x7f050025
+			public const int Next = 2131034149;
+			
 			// aapt resource value: 0x7f050019
 			public const int Notetempo = 2131034137;
 			
@@ -164,9 +167,6 @@ namespace MaestroPad
 			
 			// aapt resource value: 0x7f050021
 			public const int radioButton8 = 2131034145;
-			
-			// aapt resource value: 0x7f050025
-			public const int send = 2131034149;
 			
 			// aapt resource value: 0x7f050023
 			public const int tempovaleur = 2131034147;
