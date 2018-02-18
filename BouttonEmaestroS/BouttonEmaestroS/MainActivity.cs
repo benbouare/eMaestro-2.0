@@ -27,9 +27,11 @@ namespace BouttonEmaestroS
       for (int i = 1; i <= tmp; i++)
       {
         Button myButton = new Button(this);
-        if(i < tmp)
+          myButton.Id = i;
+
+        if (i < tmp)
         {
-          myButton.Text = " "+ i;
+          myButton.Text = " "+ myButton.Id;
         }
         else
         {
@@ -45,18 +47,6 @@ namespace BouttonEmaestroS
     }
             this.SetContentView(sv);
 
-    }
-    private int getNbMesure()
-    {
-      LinearLayout layout = new LinearLayout(this);
-      AlertDialog.Builder adb = new AlertDialog.Builder(this);
-       adb.SetView(layout);
-      adb.SetTitle("Entrer le nombre de Mesure");
-
-
-
-
-      return 0; 
     }
   }
 
