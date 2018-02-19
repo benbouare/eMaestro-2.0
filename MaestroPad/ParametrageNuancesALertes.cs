@@ -48,6 +48,11 @@ namespace MaestroPad
                 Finish();
 
             };
+
+            retour.Click += delegate
+             {
+                 Finish();
+             };
             //Liste deroulante pour les nuances
             var LaNuanace = FindViewById<Spinner>(Resource.Id.ListeNuance);
             LaNuanace.Prompt = "Selectionner la nuance";

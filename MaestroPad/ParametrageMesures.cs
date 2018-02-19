@@ -90,6 +90,27 @@ namespace MaestroPad
                     {
                         formulaire(i);
                     }
+                    else
+                    {
+                        if(myButton.Id == tmp - 1)
+                        {
+                            Intent myintent = new Intent(this, typeof(Lancement));
+                            myintent.PutExtra("nom",nom);
+                            myintent.PutExtra("valeurnumerateur",valnumerateur.ToString());
+                            myintent.PutExtra("valeurdenominateur",valdenominateur.ToString());
+                            myintent.PutExtra("valeurmode",valnote.ToString());
+                            myintent.PutExtra("tempoval",tempoval.ToString());
+                            for(int j = 1; j <=tmp; j++)
+                            {
+                                myintent.PutExtra("mesure " + j, nuances[j - 1].ToString());
+                            }
+                            StartActivity(myintent);
+                        }
+                        else
+                        {
+                            Finish();
+                        }
+                    }
                     
                 };
 

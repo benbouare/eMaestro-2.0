@@ -22,7 +22,7 @@ namespace MaestroPad
     {
 
         EnvoiViaMidi monenvoi;
-        private MidiManager manager;
+       // private MidiManager manager;
         public static int tempoval = 1;
         public static int indicateur = 1;
         public static int VELOCITY = 0;
@@ -71,8 +71,8 @@ namespace MaestroPad
             valdenominateur = Convert.ToInt32(denominateur);
 
             //initialisation du manager
-            manager = (MidiManager)GetSystemService(MidiService);
-            mythread = new Thread(new ThreadStart(envoi));
+            //manager = (MidiManager)GetSystemService(MidiService);
+            //mythread = new Thread(new ThreadStart(envoi));
             
             // Create your application here
             Button back = FindViewById<Button>(Resource.Id.back);
@@ -92,7 +92,7 @@ namespace MaestroPad
 
 
             //instanciation de la classe envoi
-            monenvoi = new EnvoiViaMidi(manager, this);
+           // monenvoi = new EnvoiViaMidi(manager, this);
 
             back.Click += (sender, e) =>
             {
@@ -171,7 +171,7 @@ namespace MaestroPad
             Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
 
         }
-        public void envoi()
+        /*public void envoi()
         {
 
             int temps = 1;
@@ -305,7 +305,7 @@ namespace MaestroPad
             
 
 
-        }
+        }*/
        
     }
 }
