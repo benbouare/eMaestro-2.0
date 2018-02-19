@@ -34,7 +34,7 @@ namespace MaestroPad
         string tmp = null;
 
 
-        Thread mythread;
+       // Thread mythread;
 
 
 

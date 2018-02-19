@@ -25,19 +25,19 @@ namespace MaestroPad
         public static int valnote = 1;//pour determiner le mode 
         public static int valnumerateur = 0;
         public static int valdenominateur = 0;
-        public static int nombresdemesure = 0;
+        public static int nombresdemesure ;
         string nom = null;
         string num = null;
         string nua = null;
        // ArrayList tabdeboutons = new ArrayList();
-        static long[] nuances;
+        static int[] nuances;
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //reception du nombre de mesures 
             string mesure = Intent.GetStringExtra("nombresdemesure") ?? "nombresdemesure not available";
             nombresdemesure = Convert.ToInt32(mesure);
-            nuances = new long[nombresdemesure];
+            nuances = new int[nombresdemesure];
             for(int i=0; i < nombresdemesure; i++)
             {
                 nuances[i] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
@@ -68,8 +68,8 @@ namespace MaestroPad
             {
                num  = data.GetStringExtra("numero_mesure");
                nua = data.GetStringExtra("choix_nuance");
-                nuances[Convert.ToInt32(num)-1] = Convert.ToInt64(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionner 
-                Toast.MakeText(ApplicationContext, nuances[Convert.ToInt32(num) - 1].ToString(), ToastLength.Long).Show();
+                nuances[Convert.ToInt32(num)-1] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionner 
+               // Toast.MakeText(ApplicationContext, nuances[Convert.ToInt32(num)].ToString(), ToastLength.Long).Show();
 
             }
         }
@@ -88,7 +88,7 @@ namespace MaestroPad
                 {
                     if(myButton.Id < tmp - 1)
                     {
-                        formulaire(i);
+                        formulaire(myButton.Id);
                     }
                     else
                     {
@@ -96,11 +96,12 @@ namespace MaestroPad
                         {
                             Intent myintent = new Intent(this, typeof(Lancement));
                             myintent.PutExtra("nom",nom);
+                            myintent.PutExtra("nombresdemesure", nombresdemesure.ToString());
                             myintent.PutExtra("valeurnumerateur",valnumerateur.ToString());
                             myintent.PutExtra("valeurdenominateur",valdenominateur.ToString());
                             myintent.PutExtra("valeurmode",valnote.ToString());
                             myintent.PutExtra("tempoval",tempoval.ToString());
-                            for(int j = 1; j <=tmp; j++)
+                            for(int j = 1; j <=tmp-2; j++)
                             {
                                 myintent.PutExtra("mesure " + j, nuances[j - 1].ToString());
                             }
@@ -148,6 +149,7 @@ namespace MaestroPad
         {
             Intent intent = new Intent(this, typeof(ParametrageNuancesALertes));
             intent.PutExtra("id_bouton", numeroMesure.ToString());
+            Toast.MakeText(ApplicationContext, numeroMesure.ToString(), ToastLength.Long).Show();
             StartActivityForResult(intent,0);
         }
     }

@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="EnvoiViaMidi.cs" />
     <Compile Include="InfosPorts.cs" />
+    <Compile Include="Lancement.cs" />
     <Compile Include="Mapartition.cs" />
     <Compile Include="ParametrageMesures.cs" />
     <Compile Include="ParametrageNuancesALertes.cs" />
@@ -81,6 +82,9 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\layout\NuancesAlerte.axml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout\Lancement.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
