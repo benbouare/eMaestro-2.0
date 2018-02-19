@@ -26,7 +26,7 @@ namespace MaestroPad
         public static int tempoval = 1;
         public static int indicateur = 1;
         public static int VELOCITY = 0;
-        public static int valnote = 1;//donne la valeur du mode choisi
+        public static int valnote = 25;//donne la valeur du mode choisi par defaut rien
         public static int valnumerateur=0;
         public static int valdenominateur = 0;
         public static int nombresdemesure = 0;

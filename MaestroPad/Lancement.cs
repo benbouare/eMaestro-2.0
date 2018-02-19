@@ -21,7 +21,7 @@ namespace MaestroPad
         public static int tempoval = 1;
         public static int indicateur = 1;
         public static int VELOCITY = 0;
-        public static int valnote = 1;//donne la valeur du mode choisi
+        public static int valnote = 25;//donne la valeur du mode choisi
         public static int valnumerateur = 0;
         public static int valdenominateur = 0;
         public static int nombresdemesure = 0;
@@ -77,7 +77,7 @@ namespace MaestroPad
 
             //les boutons 
             Button lancer = FindViewById<Button>(Resource.Id.lanceur);
-            Button pause = FindViewById<Button>(Resource.Id.Stopped);
+            Button pause = FindViewById<Button>(Resource.Id.Paused);
             Button stopper = FindViewById<Button>(Resource.Id.Stopped);
             Button Retour = FindViewById<Button>(Resource.Id.Backmesure);
 
@@ -154,9 +154,10 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
-                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
+                       
                     }
                     else
                     {
@@ -193,9 +194,10 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
-                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
+                        
                     }
                     else
                     {
@@ -242,9 +244,9 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
-                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
                         Thread.Sleep(tempoval / 3);
                         monenvoi.noteOff(2, 1, temps);
                         Thread.Sleep(tempoval / 3);

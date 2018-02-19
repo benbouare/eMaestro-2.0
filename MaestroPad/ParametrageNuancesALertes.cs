@@ -21,14 +21,15 @@ namespace MaestroPad
      public  static  int valeurcouleurAlerte = 0 ;
      public static   int valeurdelaReprise = 0 ;
      public static   int numeroMesure = 0;
-        static Intent myIntent;
+        static Intent myIntent ;
+        static String mesure;
 
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.NuancesAlerte);
-            myIntent = new Intent(this, typeof(ParametrageMesures));
+           myIntent = new Intent(this, typeof(ParametrageMesures));
 
 
             // Create your application here
@@ -37,16 +38,14 @@ namespace MaestroPad
             Button retour = FindViewById<Button>(Resource.Id.AnnulerMesure);
 
             //recuperation du numero de la mesure
-            // final Intent intent = getIntent();
-
-            string mesure = Intent.GetStringExtra("id_bouton") ?? "echec de recuperation du numero de la mesure";
+            mesure = Intent.GetStringExtra("id_bouton") ?? "echec de recuperation du numero de la mesure";
             numeroMesure = Convert.ToInt32(mesure);
 
             // event des bouttons
             valider.Click += delegate
             {
 
-                StartActivity(myIntent);
+                SetResult(Result.Ok, myIntent);
                 Finish();
 
             };
@@ -84,9 +83,10 @@ namespace MaestroPad
         {
             var repriseselected = (Spinner)sender;
             valeurdelaReprise = Convert.ToInt32(repriseselected.SelectedItemId.ToString());
-            Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
             myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
             myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
+            Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+
         }
 
         //event de Alerte
@@ -94,9 +94,10 @@ namespace MaestroPad
         {
             var Alerteselected = (Spinner)sender; 
             valeurcouleurAlerte = Convert.ToInt32(Alerteselected.SelectedItemId.ToString());
+              myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
+              myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
             Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
-            myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
-            myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
+  
 
         }
         //event de Nuance
@@ -104,9 +105,12 @@ namespace MaestroPad
         {
             var nuanceselected = (Spinner)sender ;
             valeurdelanuance = Convert.ToInt32(nuanceselected.SelectedItemId.ToString());
+             myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
+             myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
             Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
-            myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
-            myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
+           // Toast.MakeText(ApplicationContext, numeroMesure.ToString(), ToastLength.Long).Show();
+            
+
         }
     }
 }
