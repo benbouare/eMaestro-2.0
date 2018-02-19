@@ -17,14 +17,19 @@ namespace MaestroPad
     [Activity(Label = "ParametrageNuancesALertes")]
     public class ParametrageNuancesALertes : Activity
     {
-      public static  long valeurdelanuance = -1 ;
-     public  static  long valeurcouleurAlerte = 0 ;
-     public static   long valeurdelaReprise = 0 ;
-     public static   long numeroMesure = 0;
+      public static  int valeurdelanuance = -1 ;
+     public  static  int valeurcouleurAlerte = 0 ;
+     public static   int valeurdelaReprise = 0 ;
+     public static   int numeroMesure = 0;
+        static Intent myIntent;
+
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.NuancesAlerte);
+            myIntent = new Intent(this, typeof(ParametrageMesures));
+
 
             // Create your application here
 
@@ -34,17 +39,14 @@ namespace MaestroPad
             //recuperation du numero de la mesure
             // final Intent intent = getIntent();
 
-            String mesure = Intent.GetStringExtra("id_bouton") ?? "echec de recuperation du numero de la mesure";
-            numeroMesure = Convert.ToInt64(mesure);
+            string mesure = Intent.GetStringExtra("id_bouton") ?? "echec de recuperation du numero de la mesure";
+            numeroMesure = Convert.ToInt32(mesure);
 
             // event des bouttons
             valider.Click += delegate
             {
-             
-                Intent myIntent = new Intent(this, typeof(ParametrageMesures));
-                myIntent.PutExtra("numero_mesure", mesure);
-                myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
-                SetResult(Result.Ok, myIntent);
+
+                StartActivity(myIntent);
                 Finish();
 
             };
@@ -80,25 +82,31 @@ namespace MaestroPad
         //event reprises
         private void Reprises_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            var repriseselected = sender as Spinner;
-            valeurdelaReprise = repriseselected.GetItemIdAtPosition(e.Position);
-           // Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            var repriseselected = (Spinner)sender;
+            valeurdelaReprise = Convert.ToInt32(repriseselected.SelectedItemId.ToString());
+            Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
+            myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
         }
 
         //event de Alerte
         private void Alerte_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            var Alerteselected = sender as Spinner;
-         valeurcouleurAlerte = Alerteselected.GetItemIdAtPosition(e.Position);
-           // Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            var Alerteselected = (Spinner)sender; 
+            valeurcouleurAlerte = Convert.ToInt32(Alerteselected.SelectedItemId.ToString());
+            Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
+            myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
 
         }
         //event de Nuance
         private void Nuance_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            var nuanceselected = sender as Spinner;
-           valeurdelanuance=(int) nuanceselected.GetItemIdAtPosition(e.Position);
-           // Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            var nuanceselected = (Spinner)sender ;
+            valeurdelanuance = Convert.ToInt32(nuanceselected.SelectedItemId.ToString());
+            Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
+            myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
         }
     }
 }

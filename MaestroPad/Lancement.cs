@@ -56,10 +56,10 @@ namespace MaestroPad
 
             //initialisation 
             nuances = new int[nombresdemesure];
-           /* for (int i = 0; i < nombresdemesure; i++)
+            for (int i = 0; i < nombresdemesure; i++)
             {
                 nuances[i] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
-            }*/
+            }
             
             string numerateur = Intent.GetStringExtra("valeurnumerateur") ?? "numerateur not available";
             valnumerateur = Convert.ToInt32(numerateur);
@@ -181,7 +181,7 @@ namespace MaestroPad
 
                         temps = 1;
                         position++;
-                        nombresdemesure--;
+                       nombresdemesure--;
 
                     }
                 }
@@ -225,7 +225,7 @@ namespace MaestroPad
 
                         temps = 1;
                         position++;
-                        nombresdemesure--;
+                       nombresdemesure--;
 
                     }
                 }
@@ -278,7 +278,7 @@ namespace MaestroPad
                         //   tmp = 2;
                         ind = 0;
                         position++;
-                        nombresdemesure--;
+                       nombresdemesure--;
                     }
 
 

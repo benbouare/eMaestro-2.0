@@ -48,6 +48,11 @@ namespace MaestroPad
             createLayoutDynamically(nombresdemesure);//crée les buttons
 
             //recevoir les informations des parametrages precedents 
+            num = Intent.GetStringExtra("numero_mesure");
+            nua = Intent.GetStringExtra("choix_nuance");
+            nuances[Convert.ToInt32(num) ] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionner 
+                                                                     // Toast.MakeText(ApplicationContext, nuances[Convert.ToInt32(num)].ToString(), ToastLength.Long).Show();
+
             nom = Intent.GetStringExtra("nom") ?? "nom not available";
             string numerateur = Intent.GetStringExtra("numerateur") ?? "numerateur not available";
             valnumerateur = Convert.ToInt32(numerateur);
@@ -61,18 +66,7 @@ namespace MaestroPad
             
           
         }
-        protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
-        {
-            base.OnActivityResult(requestCode, resultCode, data);
-            if (resultCode == Result.Ok)
-            {
-               num  = data.GetStringExtra("numero_mesure");
-               nua = data.GetStringExtra("choix_nuance");
-                nuances[Convert.ToInt32(num)-1] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionner 
-               // Toast.MakeText(ApplicationContext, nuances[Convert.ToInt32(num)].ToString(), ToastLength.Long).Show();
-
-            }
-        }
+      
         private void createLayoutDynamically(int n)
         {
             int tmp = n + 2;
