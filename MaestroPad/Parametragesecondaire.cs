@@ -70,9 +70,6 @@ namespace MaestroPad
             string denominateur = Intent.GetStringExtra("denominateur") ?? "denominateur not available";
             valdenominateur = Convert.ToInt32(denominateur);
 
-            //initialisation du manager
-            //manager = (MidiManager)GetSystemService(MidiService);
-            //mythread = new Thread(new ThreadStart(envoi));
             
             // Create your application here
             Button back = FindViewById<Button>(Resource.Id.back);
@@ -89,17 +86,11 @@ namespace MaestroPad
 
 
 
-
-
-            //instanciation de la classe envoi
-           // monenvoi = new EnvoiViaMidi(manager, this);
-
             back.Click += (sender, e) =>
             {
                 var intent = new Intent(this, typeof(NouvellePartition));
                 StartActivity(intent);
             };
-            // MainActivity nvll = new MainActivity();
             Suivant.Click += (sender, e) =>
             {
                 tmp = tempo.Text;
@@ -171,141 +162,7 @@ namespace MaestroPad
             Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
 
         }
-        /*public void envoi()
-        {
-
-            int temps = 1;
-            if (valnote == 25)//rien
-            {
-                while (Thread.CurrentThread.IsAlive)
-                {
-                    //envoi  noteON et noteOFF
-                    if (temps == 1)
-                    {
-                        monenvoi.noteOn(1, valnumerateur, valnote);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-                    }
-                    else
-                    {
-                        Thread.Sleep(tempoval);
-                        monenvoi.noteOff(2, 1, temps - 1);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-
-                        // verif_tempo();
-                    }
-                    temps++;
-                    if (temps > valnumerateur-1)
-                    {
-                        Thread.Sleep(tempoval);
-                        monenvoi.noteOff(2, 1, temps - 1);
-                        if (valnumerateur != 1)
-                        {
-                            monenvoi.noteOn(1, valnumerateur, temps);
-                            Thread.Sleep(tempoval);
-                            monenvoi.noteOff(2, 1, temps);
-                        }
-                       
-                        temps = 1;
-
-                    }
-                }
-            }
-            if (valnote == 26)//binaire
-            {
-                while (Thread.CurrentThread.IsAlive)
-                {
-                    //envoi  noteON et noteOFF
-                    if (temps == 1)
-                    {
-                        monenvoi.noteOn(1, valnumerateur, valnote);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-                    }
-                    else
-                    {
-                        Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, 1, temps - 1);
-                        Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, 2, temps - 1);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-
-                        // verif_tempo();
-                    }
-                    temps++;
-                    if (temps > valnumerateur - 1)
-                    {
-                        Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, 1, temps - 1);
-                        Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, 2, temps - 1);
-                        if (valnumerateur != 1)
-                        {
-                            monenvoi.noteOn(1, valnumerateur, temps);
-                            Thread.Sleep(tempoval / 2);
-                            monenvoi.noteOff(2, 1, temps);
-                            Thread.Sleep(tempoval / 2);
-                            monenvoi.noteOff(2, 2, temps);
-                        }
-                       
-                        temps = 1;
-
-                    }
-                }
-                
-            }
-            if(valnote == 27)//ternaire
-            {
-               // int tmp = 2; // pour recuperer la dernière valeur du noteoff à partir du temps 
-                int ind = 0;
-                valnumerateur = valnumerateur / 3;
-              
-                while (Thread.CurrentThread.IsAlive)
-                {
-                    //envoi  noteON et noteOFF
-                    if (temps == 1)
-                    {
-                        monenvoi.noteOn(1, valnumerateur, valnote);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-                        Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, 1, temps );
-                        Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, 2 , temps );
-                        Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, 3 , temps );
-                        ind++;
-                    }
-                    else
-                    {
-                           monenvoi.noteOn(1, valnumerateur, temps);
- 
-                            Thread.Sleep(tempoval / 3);
-                            monenvoi.noteOff(2, 1, temps);
-                            Thread.Sleep(tempoval / 3);
-                            monenvoi.noteOff(2, 2, temps);
-                            Thread.Sleep(tempoval / 3);
-                            monenvoi.noteOff(2, 3, temps);
-
-                          // tmp = tmp + 2;
-                        ind++;
-
-                    }
-                    if(valnumerateur != ind)
-                    {
-                        temps++;
-                    }
-                    else
-                    {
-                        temps = 1;
-                     //   tmp = 2;
-                        ind = 0;
-                    }
-                    
-                    
-                }
-            }
-            
-
-
-        }*/
+       
        
     }
 }

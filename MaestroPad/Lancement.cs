@@ -26,11 +26,17 @@ namespace MaestroPad
         public static int valdenominateur = 0;
         public static int nombresdemesure = 0;
         string nom = null;
-       // string tmp = null;
-        static int[ , ] Mesures;
-        public static int colonne =2;
+        // string tmp = null;
+        //information du tabeau de mesures
+        static int[,] Mesures;
+        public static int colonne = 7;
         public static int nuance = 0;
         public static int alerte = 1;
+        public static int ModeNuance = 2;
+        public static int BoolReprise = 3;
+        public static int NumerofinReprise = 4;
+        public static int NombreDieses = 5;
+        public static int nombreBemols = 6;
         int mod1 = 1;
         int mod2 = 1;
         int mod3 = 1;
@@ -77,8 +83,18 @@ namespace MaestroPad
                 int nummesure = j + 1;
                 string tmp = Intent.GetStringExtra("mesure " + nummesure + "nuance");
                 string tmp2 = Intent.GetStringExtra("mesure " + nummesure + "alerte");
+                string tmp3 = Intent.GetStringExtra("mesure " + nummesure + "ModeNuance");
+                string tmp4 = Intent.GetStringExtra("mesure " + nummesure + "BoolReprise");
+                string tmp5 = Intent.GetStringExtra("mesure " + nummesure + "NumerofinReprise");
+                string tmp6 = Intent.GetStringExtra("mesure " + nummesure + "NombreDieses");
+                string tmp7 = Intent.GetStringExtra("mesure " + nummesure + "nombreBemols");
                 Mesures[j, nuance] = Convert.ToInt32(tmp);
-                Mesures[j, alerte] = Convert.ToInt32(tmp);
+                Mesures[j, alerte] = Convert.ToInt32(tmp2);
+                Mesures[j, ModeNuance] = Convert.ToInt32(tmp3);
+                Mesures[j, BoolReprise] = Convert.ToInt32(tmp4);
+                Mesures[j, NumerofinReprise] = Convert.ToInt32(tmp5);
+                Mesures[j, NombreDieses] = Convert.ToInt32(tmp6);
+                Mesures[j, nombreBemols] = Convert.ToInt32(tmp7);
             }
 
             //les boutons 
@@ -161,6 +177,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        monenvoi.Keypressure(Mesures[position,NombreDieses], Mesures[position,nombreBemols], temps);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance et l'alerte
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
@@ -201,6 +218,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        monenvoi.Keypressure(Mesures[position, NombreDieses], Mesures[position, nombreBemols], temps);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
@@ -251,6 +269,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        monenvoi.Keypressure(Mesures[position, NombreDieses], Mesures[position, nombreBemols], temps);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);

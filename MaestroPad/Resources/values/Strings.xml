@@ -21,14 +21,4 @@
     <item>Navy</item>
     <item>Firebrick</item>
   </string-array>
-  <string-array name ="ListeReprise">
-    <item>Choix Reprise1</item>
-    <item>Choix Reprise2</item>
-    <item>Choix Reprise3</item>
-    <item>Choix Reprise4</item>
-    <item>Choix Reprise5</item>
-    <item>Choix Reprise6</item>
-    <item>Choix Reprise7</item>
-    <item>Choix Reprise8</item>
-  </string-array>
 </resources>

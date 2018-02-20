@@ -27,14 +27,27 @@ namespace MaestroPad
         public static int valdenominateur = 0;
         public static int nombresdemesure ;
         string nom = null;
-       static string num = null;
+        static string num = null;
         static string nua = null;
         static string aler = null;
+        static string modnu = null;
+        static string BoolRep = null;
+        static string numfinrep = null;
+        static string nbrdies = null;
+        static string nbrbem = null;
+
         // ArrayList tabdeboutons = new ArrayList();
+        //information du tabeau de mesures
         static int[,] Mesures;
-        public static int colonne = 2;
+        public static int colonne = 7;
         public static int nuance = 0;
         public static int alerte = 1;
+        public static int ModeNuance = 2;
+        public static int BoolReprise = 3;
+        public static int NumerofinReprise = 4;
+        public static int NombreDieses = 5;
+        public static int nombreBemols = 6;
+
         
 
         protected override void OnCreate(Bundle savedInstanceState)
@@ -47,6 +60,11 @@ namespace MaestroPad
             {
                 Mesures[i,nuance] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
                 Mesures[i, alerte] = 0; //initialiser des alertes à aucune alerte pour chaque mesure
+                Mesures[i, ModeNuance] = 0; //definit si la nuance doit etre ascendante descendante ou auncune 
+                Mesures[i, BoolReprise] = 0; //definir s'il y a reprise ou non 
+                Mesures[i, NumerofinReprise] = 0;// numer de la mesure indiquand la fin de la reprise
+                Mesures[i, NombreDieses] = 0; //nombre de diese dans la mesure
+                Mesures[i, nombreBemols] = 0; //nombre de bemols dans la mesure
             }
             
 
@@ -74,12 +92,23 @@ namespace MaestroPad
                 Toast.MakeText(ApplicationContext, "Nous sommes dans le onactivityresult", ToastLength.Long).Show();
                 if (resultCode == Result.Ok)
                 {
-                 
+
+                    modnu = data.GetStringExtra("mode_nuance");
+                    BoolRep = data.GetStringExtra("Bool_reprise");
+                    numfinrep = data.GetStringExtra("finreprise");
+                    nbrdies = data.GetStringExtra("nbr_diese");
+                    nbrbem = data.GetStringExtra("nbr_bemol");
                     num = data.GetStringExtra("numero_mesure");
                     nua = data.GetStringExtra("choix_nuance");
                     aler = data.GetStringExtra("choix_alerte");
                     Mesures[(Convert.ToInt32(num) - 1),nuance] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionnée 
                     Mesures[(Convert.ToInt32(num) - 1), alerte] = Convert.ToInt32(aler);//pour chaque mesure (button) on sauvegarde ici l'alerte  selectionnée
+                    Mesures[(Convert.ToInt32(num) - 1), ModeNuance] = Convert.ToInt32(modnu);
+                    Mesures[(Convert.ToInt32(num) - 1), BoolReprise] = Convert.ToInt32(BoolRep);
+                    Mesures[(Convert.ToInt32(num) - 1), NumerofinReprise] = Convert.ToInt32(numfinrep);
+                    Mesures[(Convert.ToInt32(num) - 1), NombreDieses] = Convert.ToInt32(nbrdies);
+                    Mesures[(Convert.ToInt32(num) - 1), nombreBemols] = Convert.ToInt32(nbrbem);
+
                     Toast.MakeText(ApplicationContext, nua, ToastLength.Long).Show();
                     Toast.MakeText(ApplicationContext, Mesures[(Convert.ToInt32(num) - 1),nuance].ToString(), ToastLength.Long).Show();
                 }
@@ -118,6 +147,11 @@ namespace MaestroPad
                             {
                                 myintent.PutExtra("mesure " + j + "nuance", Mesures[(j - 1),nuance].ToString());
                                 myintent.PutExtra("mesure " + j + "alerte", Mesures[(j - 1), alerte].ToString());
+                                myintent.PutExtra("mesure " + j + "ModeNuance", Mesures[(j - 1), ModeNuance].ToString());
+                                myintent.PutExtra("mesure " + j + "BoolReprise", Mesures[(j - 1), BoolReprise].ToString());
+                                myintent.PutExtra("mesure " + j + "NumerofinReprise", Mesures[(j - 1), NumerofinReprise].ToString());
+                                myintent.PutExtra("mesure " + j + "NombreDieses", Mesures[(j - 1), NombreDieses].ToString());
+                                myintent.PutExtra("mesure " + j + "nombreBemols", Mesures[(j - 1), nombreBemols].ToString());
                             }
                             StartActivity(myintent);
                             Toast.MakeText(ApplicationContext, Mesures[0,nuance].ToString(), ToastLength.Long).Show();

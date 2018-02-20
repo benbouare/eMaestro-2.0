@@ -48,6 +48,11 @@ namespace MaestroPad
             midiCommand(0xB0 + channel, controllernumber, controllervalue);
         }
 
+        public void Keypressure(int channel, int Key, int Pressure)
+        {
+            midiCommand(0xA0 + channel, Key, Pressure);
+        }
+
         private void midiCommand(int status, int data1, int data2)
         {
             buffer[0] = (byte)status;
