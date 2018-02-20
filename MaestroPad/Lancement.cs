@@ -75,8 +75,8 @@ namespace MaestroPad
             for (int j = 0; j < nombresdemesure; j++)
             {
                 int nummesure = j + 1;
-                string tmp = Intent.GetStringExtra("mesure " + j + "nuance");
-                string tmp2 = Intent.GetStringExtra("mesure " + j + "alerte");
+                string tmp = Intent.GetStringExtra("mesure " + nummesure + "nuance");
+                string tmp2 = Intent.GetStringExtra("mesure " + nummesure + "alerte");
                 Mesures[j, nuance] = Convert.ToInt32(tmp);
                 Mesures[j, alerte] = Convert.ToInt32(tmp);
             }
