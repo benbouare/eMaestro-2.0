@@ -27,7 +27,10 @@ namespace MaestroPad
         public static int nombresdemesure = 0;
         string nom = null;
        // string tmp = null;
-        static int[] nuances;
+        static int[ , ] Mesures;
+        public static int colonne =2;
+        public static int nuance = 0;
+        public static int alerte = 1;
         int mod1 = 1;
         int mod2 = 1;
         int mod3 = 1;
@@ -55,7 +58,7 @@ namespace MaestroPad
             nombresdemesure = Convert.ToInt32(mesure);
 
             //initialisation 
-            nuances = new int[nombresdemesure];
+            Mesures = new int[nombresdemesure,colonne];
            /* for (int i = 0; i < nombresdemesure; i++)
             {
                 nuances[i] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
@@ -72,8 +75,10 @@ namespace MaestroPad
             for (int j = 0; j < nombresdemesure; j++)
             {
                 int nummesure = j + 1;
-                string tmp = Intent.GetStringExtra("mesure " + nummesure);
-                nuances[j] = Convert.ToInt32(tmp);
+                string tmp = Intent.GetStringExtra("mesure " + j + "nuance");
+                string tmp2 = Intent.GetStringExtra("mesure " + j + "alerte");
+                Mesures[j, nuance] = Convert.ToInt32(tmp);
+                Mesures[j, alerte] = Convert.ToInt32(tmp);
             }
 
             //les boutons 
@@ -86,7 +91,7 @@ namespace MaestroPad
             //event des buttons
             lancer.Click += delegate
             {
-                Toast.MakeText(ApplicationContext, nuances[0].ToString(), ToastLength.Long).Show();
+                Toast.MakeText(ApplicationContext, Mesures[0, nuance].ToString(), ToastLength.Long).Show();
                 mod1++;
                 if((mod1 % 2)== 0)
                 {
@@ -156,7 +161,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
+                        monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance et l'alerte
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
                        
@@ -196,7 +201,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
+                        monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
                         
@@ -246,7 +251,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        monenvoi.controlChange(1, nuances[position], temps);//envoi de la nuance
+                        monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
                         Thread.Sleep(tempoval / 3);

@@ -17,7 +17,7 @@ namespace MaestroPad
     [Activity(Label = "ParametrageNuancesALertes")]
     public class ParametrageNuancesALertes : Activity
     {
-      public static  int valeurdelanuance = -1 ;
+     public static  int valeurdelanuance = -1 ;
      public  static  int valeurcouleurAlerte = 0 ;
      public static   int valeurdelaReprise = 0 ;
      public static   int numeroMesure = 0;
@@ -47,6 +47,7 @@ namespace MaestroPad
                 myIntent = new Intent(this, typeof(ParametrageMesures));
                 myIntent.PutExtra("numero_mesure", mesure);
                 myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
+                myIntent.PutExtra("choix_alerte", valeurcouleurAlerte.ToString());
                 this.SetResult(Result.Ok, myIntent);
                 Finish();
 

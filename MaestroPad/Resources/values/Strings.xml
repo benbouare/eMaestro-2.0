@@ -2,6 +2,7 @@
 <resources>
   <string name="app_name">MaestroPad</string>
   <string-array name ="ListeNuances">
+    <item>Aucune</item>
     <item>Pianississimo</item>
     <item>Pianissimo</item>
     <item>Piano</item>
@@ -12,14 +13,13 @@
     <item>Mezzoforte</item>
   </string-array>
   <string-array name ="ListeCouleur">
-    <item>Couleur1</item>
-    <item>Couleur2</item>
-    <item>Couleur3</item>
-    <item>Couleur4</item>
-    <item>Couleur5</item>
-    <item>Couleur6</item>
-    <item>Couleur7</item>
-    <item>Couleur8</item>
+    <item>Aucune</item>
+    <item>Crimson</item>
+    <item>DarkOliveGreen</item>
+    <item>Deeppink</item>
+    <item>Lemonchiffon</item>
+    <item>Navy</item>
+    <item>Firebrick</item>
   </string-array>
   <string-array name ="ListeReprise">
     <item>Choix Reprise1</item>

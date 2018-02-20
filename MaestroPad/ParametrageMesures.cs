@@ -29,18 +29,24 @@ namespace MaestroPad
         string nom = null;
        static string num = null;
         static string nua = null;
-       // ArrayList tabdeboutons = new ArrayList();
-        static int[] nuances;
+        static string aler = null;
+        // ArrayList tabdeboutons = new ArrayList();
+        static int[,] Mesures;
+        public static int colonne = 2;
+        public static int nuance = 0;
+        public static int alerte = 1;
+        
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
             //reception du nombre de mesures 
             string mesure = Intent.GetStringExtra("nombresdemesure") ?? "nombresdemesure not available";
             nombresdemesure = Convert.ToInt32(mesure);
-            nuances = new int[nombresdemesure];
+            Mesures = new int[nombresdemesure,colonne];
             for(int i=0; i < nombresdemesure; i++)
             {
-                nuances[i] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
+                Mesures[i,nuance] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
+                Mesures[i, alerte] = 0; //initialiser des alertes à aucune alerte pour chaque mesure
             }
             
 
@@ -71,9 +77,11 @@ namespace MaestroPad
                  
                     num = data.GetStringExtra("numero_mesure");
                     nua = data.GetStringExtra("choix_nuance");
-                    nuances[Convert.ToInt32(num) - 1] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionner 
+                    aler = data.GetStringExtra("choix_alerte");
+                    Mesures[(Convert.ToInt32(num) - 1),nuance] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionnée 
+                    Mesures[(Convert.ToInt32(num) - 1), alerte] = Convert.ToInt32(aler);//pour chaque mesure (button) on sauvegarde ici l'alerte  selectionnée
                     Toast.MakeText(ApplicationContext, nua, ToastLength.Long).Show();
-                    Toast.MakeText(ApplicationContext, nuances[Convert.ToInt32(num) - 1].ToString(), ToastLength.Long).Show();
+                    Toast.MakeText(ApplicationContext, Mesures[(Convert.ToInt32(num) - 1),nuance].ToString(), ToastLength.Long).Show();
                 }
             }
            
@@ -108,10 +116,11 @@ namespace MaestroPad
                             myintent.PutExtra("tempoval",tempoval.ToString());
                             for(int j = 1; j <=tmp-2; j++)
                             {
-                                myintent.PutExtra("mesure " + j, nuances[j - 1].ToString());
+                                myintent.PutExtra("mesure " + j + "nuance", Mesures[(j - 1),nuance].ToString());
+                                myintent.PutExtra("mesure " + j + "alerte", Mesures[(j - 1), alerte].ToString());
                             }
                             StartActivity(myintent);
-                            Toast.MakeText(ApplicationContext, nuances[0].ToString(), ToastLength.Long).Show();
+                            Toast.MakeText(ApplicationContext, Mesures[0,nuance].ToString(), ToastLength.Long).Show();
                         }
                         else
                         {
