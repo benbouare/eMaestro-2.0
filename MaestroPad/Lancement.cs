@@ -56,11 +56,11 @@ namespace MaestroPad
 
             //initialisation 
             nuances = new int[nombresdemesure];
-            for (int i = 0; i < nombresdemesure; i++)
+           /* for (int i = 0; i < nombresdemesure; i++)
             {
                 nuances[i] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
             }
-            
+            */
             string numerateur = Intent.GetStringExtra("valeurnumerateur") ?? "numerateur not available";
             valnumerateur = Convert.ToInt32(numerateur);
             string denominateur = Intent.GetStringExtra("valeurdenominateur") ?? "denominateur not available";
@@ -71,7 +71,8 @@ namespace MaestroPad
             valnote = Convert.ToInt32(mode);
             for (int j = 0; j < nombresdemesure; j++)
             {
-                string tmp = Intent.GetStringExtra("mesure " + j+1);
+                int nummesure = j + 1;
+                string tmp = Intent.GetStringExtra("mesure " + nummesure);
                 nuances[j] = Convert.ToInt32(tmp);
             }
 
@@ -85,6 +86,7 @@ namespace MaestroPad
             //event des buttons
             lancer.Click += delegate
             {
+                Toast.MakeText(ApplicationContext, nuances[0].ToString(), ToastLength.Long).Show();
                 mod1++;
                 if((mod1 % 2)== 0)
                 {

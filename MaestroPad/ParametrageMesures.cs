@@ -27,8 +27,8 @@ namespace MaestroPad
         public static int valdenominateur = 0;
         public static int nombresdemesure ;
         string nom = null;
-        string num = null;
-        string nua = null;
+       static string num = null;
+        static string nua = null;
        // ArrayList tabdeboutons = new ArrayList();
         static int[] nuances;
 
@@ -63,16 +63,17 @@ namespace MaestroPad
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
-           if(requestCode == ResultCode)
+           if(requestCode == 0)
             {
+                Toast.MakeText(ApplicationContext, "Nous sommes dans le onactivityresult", ToastLength.Long).Show();
                 if (resultCode == Result.Ok)
                 {
                  
                     num = data.GetStringExtra("numero_mesure");
                     nua = data.GetStringExtra("choix_nuance");
-                    nuances[Convert.ToInt32(num)] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionner 
-                                                                             // Toast.MakeText(ApplicationContext, nuances[Convert.ToInt32(num)].ToString(), ToastLength.Long).Show();
-
+                    nuances[Convert.ToInt32(num) - 1] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionner 
+                    Toast.MakeText(ApplicationContext, nua, ToastLength.Long).Show();
+                    Toast.MakeText(ApplicationContext, nuances[Convert.ToInt32(num) - 1].ToString(), ToastLength.Long).Show();
                 }
             }
            
@@ -109,7 +110,8 @@ namespace MaestroPad
                             {
                                 myintent.PutExtra("mesure " + j, nuances[j - 1].ToString());
                             }
-                            StartActivityForResult(myintent,ResultCode);
+                            StartActivity(myintent);
+                            Toast.MakeText(ApplicationContext, nuances[0].ToString(), ToastLength.Long).Show();
                         }
                         else
                         {

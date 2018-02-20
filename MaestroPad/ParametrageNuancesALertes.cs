@@ -29,7 +29,7 @@ namespace MaestroPad
         {
             base.OnCreate(savedInstanceState);
             SetContentView(Resource.Layout.NuancesAlerte);
-           myIntent = new Intent(this, typeof(ParametrageMesures));
+           
 
 
             // Create your application here
@@ -44,8 +44,10 @@ namespace MaestroPad
             // event des bouttons
             valider.Click += delegate
             {
-
-                SetResult(Result.Ok, myIntent);
+                myIntent = new Intent(this, typeof(ParametrageMesures));
+                myIntent.PutExtra("numero_mesure", mesure);
+                myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
+                this.SetResult(Result.Ok, myIntent);
                 Finish();
 
             };
@@ -83,9 +85,7 @@ namespace MaestroPad
         {
             var repriseselected = (Spinner)sender;
             valeurdelaReprise = Convert.ToInt32(repriseselected.SelectedItemId.ToString());
-            myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
-            myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
-            Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            Toast.MakeText(ApplicationContext, valeurdelaReprise.ToString(), ToastLength.Long).Show();
 
         }
 
@@ -94,9 +94,7 @@ namespace MaestroPad
         {
             var Alerteselected = (Spinner)sender; 
             valeurcouleurAlerte = Convert.ToInt32(Alerteselected.SelectedItemId.ToString());
-              myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
-              myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
-            Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            Toast.MakeText(ApplicationContext, valeurcouleurAlerte.ToString(), ToastLength.Long).Show();
   
 
         }
@@ -105,8 +103,6 @@ namespace MaestroPad
         {
             var nuanceselected = (Spinner)sender ;
             valeurdelanuance = Convert.ToInt32(nuanceselected.SelectedItemId.ToString());
-             myIntent.PutExtra("numero_mesure", numeroMesure.ToString());
-             myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
             Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
            // Toast.MakeText(ApplicationContext, numeroMesure.ToString(), ToastLength.Long).Show();
             
