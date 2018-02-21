@@ -4,7 +4,6 @@ using Android.Widget;
 using Android.Systems;
 using Android.Content;
 using Android.Views;
-using System;
 using Android.Graphics;
 
 namespace BouttonEmaestroS
@@ -15,18 +14,22 @@ namespace BouttonEmaestroS
     protected override void OnCreate(Bundle savedInstanceState)
     {
       base.OnCreate(savedInstanceState);
-      createLayoutDynamically(100);
+      CreateLayoutDynamically(100);
  }
-    private void createLayoutDynamically(int n)
+    private void CreateLayoutDynamically(int n)
     {
       int tmp = n + 1;
        ScrollView sv = new ScrollView(this);
       LinearLayout layout = new LinearLayout(this);
-      layout.Orientation = Orientation.Vertical;
+      int larglayout = layout.Width;
+      int hautlayou = layout.Height;
+      //layout.orientation = Orientation.Vertical;
       sv.AddView(layout);
       for (int i = 1; i <= tmp; i++)
       {
+
         Button myButton = new Button(this);
+
           myButton.Id = i;
 
         if (i < tmp)
@@ -36,14 +39,14 @@ namespace BouttonEmaestroS
         else
         {
           myButton.Text = "Envoyer" ;
-          myButton.SetBackgroundColor(Color.Green);
+          myButton.SetBackgroundColor(Color.White);
           myButton.SetTextColor(Color.Black);
 
 
         }
-      
+     
         layout.AddView(myButton);
-
+        
     }
             this.SetContentView(sv);
 
