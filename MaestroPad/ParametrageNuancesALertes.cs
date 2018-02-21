@@ -92,42 +92,31 @@ namespace MaestroPad
 
                 if(booleandereprise == 1 )
                 {
-                    tmp = Numerodefinreprise.Text.ToString();
-                    if (tmp != null && tmp != string.Empty)
-                    {
-                        finreprise = Convert.ToInt32(tmp);
-                        indic++;
-                    }
-                    else
-                    {
-                        string message = "vous n'avez pas renseigné la reprise de fin";
-                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
-                    }
+                   
                     tmp2 = nombrediese.Text.ToString();
                     if (tmp2 != null && tmp2 != string.Empty)
                     {
                         nbrdiese = Convert.ToInt32(tmp2);
-                        indic++;
                     }
                     else
                     {
-                        string message = "renseignez le nombre de Dieses ou 0 pour continuer ";
-                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
+                        string message = "0 Diese ";
+                        //Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
                     tmp3 = nombrebemol.Text.ToString();
                     if (tmp3 != null && tmp3 != string.Empty)
                     {
                         nbrbemol = Convert.ToInt32(tmp3);
-                        indic++;
                     }
                     else
                     {
-                        string message = "renseignez le nombre de Bemols ou 0 pour continuer ";
-                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
+                        string message = "0 Bemol ";
+                        //Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
-
-                    if (indic == 3)
+                    tmp = Numerodefinreprise.Text.ToString();
+                    if (tmp != null && tmp != string.Empty)
                     {
+                        finreprise = Convert.ToInt32(tmp);
                         int tmpo = numeroMesure - 1;
                         myIntent = new Intent(this, typeof(ParametrageMesures));
                         myIntent.PutExtra("numero_mesure", mesure);
@@ -143,7 +132,8 @@ namespace MaestroPad
                     }
                     else
                     {
-                        control();
+                        string message = "vous n'avez pas renseigné la reprise de fin";
+                        //Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
                     
                 }
@@ -153,26 +143,25 @@ namespace MaestroPad
                     if (tmp2 != null && tmp2 != string.Empty)
                     {
                         nbrdiese = Convert.ToInt32(tmp2);
-                        indic++;
+                       
                     }
                     else
                     {
-                        string message = "renseignez le nombre de Dieses ou 0 pour continuer ";
-                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
+                        string message = " 0 Diese ";
+                        //Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
                     tmp3 = nombrebemol.Text.ToString();
                     if (tmp3 != null && tmp3 != string.Empty)
                     {
                         nbrbemol = Convert.ToInt32(tmp3);
-                        indic++;
                     }
                     else
                     {
-                        string message = "renseignez le nombre de Bemols ou 0 pour continuer ";
-                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
+                        string message = "0 bemol ";
+                        //Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
-                    if (indic == 2)
-                    {
+
+
                         int tmpo = numeroMesure - 1;
                         myIntent = new Intent(this, typeof(ParametrageMesures));
                         myIntent.PutExtra("numero_mesure", mesure);
@@ -185,11 +174,6 @@ namespace MaestroPad
                         myIntent.PutExtra("nbr_bemol", nbrbemol.ToString());
                         this.SetResult(Result.Ok, myIntent);
                         Finish();
-                    }
-                    else
-                    {
-                        control();
-                    }
                 }
                
 
@@ -223,13 +207,13 @@ namespace MaestroPad
         {
             RadioButton monbouton = (RadioButton)sender;
             booleandereprise = 0;
-            Toast.MakeText(ApplicationContext, "non est selectionné " + booleandereprise.ToString(), ToastLength.Long).Show();
+            //Toast.MakeText(ApplicationContext, "non est selectionné " + booleandereprise.ToString(), ToastLength.Long).Show();
         }
         private void on_clickSwitchboolrepriseoui(object sender, EventArgs e)
         {
             RadioButton monbouton = (RadioButton)sender;
             booleandereprise = 1;
-            Toast.MakeText(ApplicationContext,"oui est selectionné " +booleandereprise.ToString(), ToastLength.Long).Show();
+            //Toast.MakeText(ApplicationContext,"oui est selectionné " +booleandereprise.ToString(), ToastLength.Long).Show();
         }
 
 
@@ -238,7 +222,7 @@ namespace MaestroPad
         {
             var Alerteselected = (Spinner)sender; 
             valeurcouleurAlerte = Convert.ToInt32(Alerteselected.SelectedItemId.ToString());
-            Toast.MakeText(ApplicationContext, valeurcouleurAlerte.ToString(), ToastLength.Long).Show();
+            //Toast.MakeText(ApplicationContext, valeurcouleurAlerte.ToString(), ToastLength.Long).Show();
   
 
         }
@@ -247,7 +231,7 @@ namespace MaestroPad
         {
             var nuanceselected = (Spinner)sender ;
             valeurdelanuance = Convert.ToInt32(nuanceselected.SelectedItemId.ToString());
-            Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
+            //Toast.MakeText(ApplicationContext, valeurdelanuance.ToString(), ToastLength.Long).Show();
            // Toast.MakeText(ApplicationContext, numeroMesure.ToString(), ToastLength.Long).Show();
             
 

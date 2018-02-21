@@ -89,7 +89,7 @@ namespace MaestroPad
             base.OnActivityResult(requestCode, resultCode, data);
            if(requestCode == 0)
             {
-                Toast.MakeText(ApplicationContext, "Nous sommes dans le onactivityresult", ToastLength.Long).Show();
+                //Toast.MakeText(ApplicationContext, "Nous sommes dans le onactivityresult", ToastLength.Long).Show();
                 if (resultCode == Result.Ok)
                 {
 
@@ -110,10 +110,10 @@ namespace MaestroPad
                     Mesures[inter, NombreDieses] = Convert.ToInt32(nbrdies);
                     Mesures[inter, nombreBemols] = Convert.ToInt32(nbrbem);
 
-                    Toast.MakeText(ApplicationContext, nua, ToastLength.Long).Show();
-                    Toast.MakeText(ApplicationContext, Mesures[(Convert.ToInt32(num) - 1),nuance].ToString(), ToastLength.Long).Show();
-                    Toast.MakeText(ApplicationContext,"La valeur de bool de la mesure "+ num + " " + BoolRep, ToastLength.Long).Show();
-                    Toast.MakeText(ApplicationContext, "La mesure de fin " + numfinrep.ToString(), ToastLength.Long).Show();
+                    //Toast.MakeText(ApplicationContext, nua, ToastLength.Long).Show();
+                    //Toast.MakeText(ApplicationContext, Mesures[(Convert.ToInt32(num) - 1),nuance].ToString(), ToastLength.Long).Show();
+                    //Toast.MakeText(ApplicationContext,"La valeur de bool de la mesure "+ num + " " + BoolRep, ToastLength.Long).Show();
+                    //Toast.MakeText(ApplicationContext, "La mesure de fin " + numfinrep.ToString(), ToastLength.Long).Show();
                 }
             }
            
@@ -157,7 +157,7 @@ namespace MaestroPad
                                 myintent.PutExtra("mesure " + j + "nombreBemols", Mesures[(j - 1), nombreBemols].ToString());
                             }
                             StartActivity(myintent);
-                            Toast.MakeText(ApplicationContext, Mesures[0,nuance].ToString(), ToastLength.Long).Show();
+                            //Toast.MakeText(ApplicationContext, Mesures[0,nuance].ToString(), ToastLength.Long).Show();
                         }
                         else
                         {
@@ -201,7 +201,7 @@ namespace MaestroPad
         {
             Intent intent = new Intent(this, typeof(ParametrageNuancesALertes));
             intent.PutExtra("id_bouton", numeroMesure.ToString());
-            Toast.MakeText(ApplicationContext, numeroMesure.ToString(), ToastLength.Long).Show();
+            //Toast.MakeText(ApplicationContext, numeroMesure.ToString(), ToastLength.Long).Show();
             StartActivityForResult(intent,0);
         }
     }

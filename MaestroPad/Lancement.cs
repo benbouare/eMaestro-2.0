@@ -171,7 +171,7 @@ namespace MaestroPad
             int dejapasse = 0;
             int intermediaire = -1;
             int temps = 1;
-            int tampon = 0;
+            //int tampon = 0;
             if (valnote == 25)//rien
             {
                 while (position < nombresdemesure)
@@ -181,15 +181,15 @@ namespace MaestroPad
                         intermediaire = position;
                         //tampon = Mesures[intermediaire, NumerofinReprise] - 1;
                     }
-                    if (position > (Mesures[intermediaire, NumerofinReprise] - 1) && dejapasse == 0)
+                    if ((intermediaire >=0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
                     {
                         position = intermediaire;
-                        dejapasse++;
+                        dejapasse = 1;
                     }
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        monenvoi.Keypressure(intermediaire, Mesures[position,nombreBemols], Mesures[position, NombreDieses]);
+                        monenvoi.Keypressure(temps, Mesures[position,nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance et l'alerte
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
@@ -227,9 +227,9 @@ namespace MaestroPad
                     if (Mesures[position, BoolReprise] == 1)
                     {
                         intermediaire = position;
-                        tampon = Mesures[intermediaire, NumerofinReprise] - 1;
+                        //tampon = Mesures[intermediaire, NumerofinReprise] - 1;
                     }
-                    if (position > tampon && dejapasse == 0)
+                    if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
                     {
                         position = intermediaire;
                         dejapasse++;
@@ -288,9 +288,9 @@ namespace MaestroPad
                     if (Mesures[position, BoolReprise] == 1)
                     {
                         intermediaire = position;
-                        tampon = Mesures[intermediaire, NumerofinReprise] - 1;
+                        //tampon = Mesures[intermediaire, NumerofinReprise] - 1;
                     }
-                    if (position > tampon && dejapasse == 0)
+                    if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
                     {
                         position = intermediaire;
                         dejapasse++;
