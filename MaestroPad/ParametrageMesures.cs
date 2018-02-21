@@ -101,16 +101,19 @@ namespace MaestroPad
                     num = data.GetStringExtra("numero_mesure");
                     nua = data.GetStringExtra("choix_nuance");
                     aler = data.GetStringExtra("choix_alerte");
-                    Mesures[(Convert.ToInt32(num) - 1),nuance] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionnée 
-                    Mesures[(Convert.ToInt32(num) - 1), alerte] = Convert.ToInt32(aler);//pour chaque mesure (button) on sauvegarde ici l'alerte  selectionnée
-                    Mesures[(Convert.ToInt32(num) - 1), ModeNuance] = Convert.ToInt32(modnu);
-                    Mesures[(Convert.ToInt32(num) - 1), BoolReprise] = Convert.ToInt32(BoolRep);
-                    Mesures[(Convert.ToInt32(num) - 1), NumerofinReprise] = Convert.ToInt32(numfinrep);
-                    Mesures[(Convert.ToInt32(num) - 1), NombreDieses] = Convert.ToInt32(nbrdies);
-                    Mesures[(Convert.ToInt32(num) - 1), nombreBemols] = Convert.ToInt32(nbrbem);
+                    int inter = (Convert.ToInt32(num) - 1);//numero de la mesure -1 car le tableau commence à 0
+                    Mesures[inter, nuance] = Convert.ToInt32(nua);//pour chaque mesure (button) on sauvegarde ici la nuance selectionnée 
+                    Mesures[inter, alerte] = Convert.ToInt32(aler);//pour chaque mesure (button) on sauvegarde ici l'alerte  selectionnée
+                    Mesures[inter, ModeNuance] = Convert.ToInt32(modnu);
+                    Mesures[inter, BoolReprise] = Convert.ToInt32(BoolRep);
+                    Mesures[inter, NumerofinReprise] = Convert.ToInt32(numfinrep);
+                    Mesures[inter, NombreDieses] = Convert.ToInt32(nbrdies);
+                    Mesures[inter, nombreBemols] = Convert.ToInt32(nbrbem);
 
                     Toast.MakeText(ApplicationContext, nua, ToastLength.Long).Show();
                     Toast.MakeText(ApplicationContext, Mesures[(Convert.ToInt32(num) - 1),nuance].ToString(), ToastLength.Long).Show();
+                    Toast.MakeText(ApplicationContext,"La valeur de bool de la mesure "+ num + " " + BoolRep, ToastLength.Long).Show();
+                    Toast.MakeText(ApplicationContext, "La mesure de fin " + numfinrep.ToString(), ToastLength.Long).Show();
                 }
             }
            

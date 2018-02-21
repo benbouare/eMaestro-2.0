@@ -41,7 +41,7 @@ namespace MaestroPad
         int mod2 = 1;
         int mod3 = 1;
       //  int mod4 = 1;
-        int position = 0;
+        public static int position = 0;
 
 
         Thread mythread;
@@ -107,7 +107,7 @@ namespace MaestroPad
             //event des buttons
             lancer.Click += delegate
             {
-                Toast.MakeText(ApplicationContext, Mesures[0, nuance].ToString(), ToastLength.Long).Show();
+                Toast.MakeText(ApplicationContext, Mesures[2, NumerofinReprise].ToString(), ToastLength.Long).Show();
                 mod1++;
                 if((mod1 % 2)== 0)
                 {
@@ -168,16 +168,28 @@ namespace MaestroPad
         }
         public void envoi()
         {
-
+            int dejapasse = 0;
+            int intermediaire = -1;
             int temps = 1;
+            int tampon = 0;
             if (valnote == 25)//rien
             {
-                while (nombresdemesure!=0)
+                while (position < nombresdemesure)
                 {
+                    if (Mesures[position, BoolReprise] == 1)
+                    {
+                        intermediaire = position;
+                        //tampon = Mesures[intermediaire, NumerofinReprise] - 1;
+                    }
+                    if (position > (Mesures[intermediaire, NumerofinReprise] - 1) && dejapasse == 0)
+                    {
+                        position = intermediaire;
+                        dejapasse++;
+                    }
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        monenvoi.Keypressure(temps, Mesures[position,nombreBemols], Mesures[position, NombreDieses]);
+                        monenvoi.Keypressure(intermediaire, Mesures[position,nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance et l'alerte
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
@@ -188,9 +200,6 @@ namespace MaestroPad
                         Thread.Sleep(tempoval);
                         monenvoi.noteOff(2, 1, temps - 1);
                         monenvoi.noteOn(1, valnumerateur, temps);
-                        
-
-                        // verif_tempo();
                     }
                     temps++;
                     if (temps > valnumerateur - 1)
@@ -206,15 +215,25 @@ namespace MaestroPad
 
                         temps = 1;
                         position++;
-                       nombresdemesure--;
+                     //  nombresdemesure--;
 
                     }
                 }
             }
             if (valnote == 26)//binaire
             {
-                while (nombresdemesure!=0)
+                while (position < nombresdemesure)
                 {
+                    if (Mesures[position, BoolReprise] == 1)
+                    {
+                        intermediaire = position;
+                        tampon = Mesures[intermediaire, NumerofinReprise] - 1;
+                    }
+                    if (position > tampon && dejapasse == 0)
+                    {
+                        position = intermediaire;
+                        dejapasse++;
+                    }
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
@@ -252,7 +271,7 @@ namespace MaestroPad
 
                         temps = 1;
                         position++;
-                       nombresdemesure--;
+                       //nombresdemesure--;
 
                     }
                 }
@@ -264,8 +283,18 @@ namespace MaestroPad
                 int ind = 0;
                 valnumerateur = valnumerateur / 3;
 
-                while (nombresdemesure!=0)
+                while (position < nombresdemesure )
                 {
+                    if (Mesures[position, BoolReprise] == 1)
+                    {
+                        intermediaire = position;
+                        tampon = Mesures[intermediaire, NumerofinReprise] - 1;
+                    }
+                    if (position > tampon && dejapasse == 0)
+                    {
+                        position = intermediaire;
+                        dejapasse++;
+                    }
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
@@ -306,7 +335,7 @@ namespace MaestroPad
                         //   tmp = 2;
                         ind = 0;
                         position++;
-                       nombresdemesure--;
+                      // nombresdemesure--;
                     }
 
 

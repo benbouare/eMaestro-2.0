@@ -41,10 +41,18 @@ namespace MaestroPad
      string nom = null;
      static Intent myIntent ;
      static String mesure;
-     
+
+     public static int finreprise = 0;
+     public static int nbrdiese = 0;
+     public static int nbrbemol = 0;
+
+     public static string tmp = null;
+     public static string tmp2 = null;
+     public static string tmp3 = null;
 
 
-     
+
+
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -80,42 +88,42 @@ namespace MaestroPad
             // event des bouttons
             valider.Click += delegate
             {
-                int finreprise = 0;
-                int nbrdiese = 0;
-                int nbrbemol = 0;
+               
 
-                string tmp = Numerodefinreprise.Text;
-                string tmp2 = nombrediese.Text;
-                string tmp3 = nombrebemol.Text;
-
-                if(booleandereprise==1 )
+                if(booleandereprise == 1 )
                 {
+                    tmp = Numerodefinreprise.Text.ToString();
                     if (tmp != null && tmp != string.Empty)
                     {
-                        finreprise = Convert.ToInt32(tmp.ToString());
+                        finreprise = Convert.ToInt32(tmp);
                         indic++;
                     }
                     else
                     {
-                        control();
+                        string message = "vous n'avez pas renseigné la reprise de fin";
+                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
+                    tmp2 = nombrediese.Text.ToString();
                     if (tmp2 != null && tmp2 != string.Empty)
                     {
-                        nbrdiese = Convert.ToInt32(tmp2.ToString());
+                        nbrdiese = Convert.ToInt32(tmp2);
                         indic++;
                     }
                     else
                     {
-                        control();
+                        string message = "renseignez le nombre de Dieses ou 0 pour continuer ";
+                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
+                    tmp3 = nombrebemol.Text.ToString();
                     if (tmp3 != null && tmp3 != string.Empty)
                     {
-                        nbrbemol = Convert.ToInt32(tmp3.ToString());
+                        nbrbemol = Convert.ToInt32(tmp3);
                         indic++;
                     }
                     else
                     {
-                        control();
+                        string message = "renseignez le nombre de Bemols ou 0 pour continuer ";
+                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
 
                     if (indic == 3)
@@ -141,23 +149,27 @@ namespace MaestroPad
                 }
                 else
                 {
+                    tmp2 = nombrediese.Text.ToString();
                     if (tmp2 != null && tmp2 != string.Empty)
                     {
-                        nbrdiese = Convert.ToInt32(tmp2.ToString());
+                        nbrdiese = Convert.ToInt32(tmp2);
                         indic++;
                     }
                     else
                     {
-                        control();
+                        string message = "renseignez le nombre de Dieses ou 0 pour continuer ";
+                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
+                    tmp3 = nombrebemol.Text.ToString();
                     if (tmp3 != null && tmp3 != string.Empty)
                     {
-                        nbrbemol = Convert.ToInt32(tmp3.ToString());
+                        nbrbemol = Convert.ToInt32(tmp3);
                         indic++;
                     }
                     else
                     {
-                        control();
+                        string message = "renseignez le nombre de Bemols ou 0 pour continuer ";
+                        Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                     }
                     if (indic == 2)
                     {
