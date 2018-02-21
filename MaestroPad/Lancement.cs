@@ -177,7 +177,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        monenvoi.Keypressure(Mesures[position,NombreDieses], Mesures[position,nombreBemols], temps);
+                        monenvoi.Keypressure(temps, Mesures[position,nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance et l'alerte
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
@@ -218,7 +218,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        monenvoi.Keypressure(Mesures[position, NombreDieses], Mesures[position, nombreBemols], temps);
+                        monenvoi.Keypressure(temps, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);
@@ -269,7 +269,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        monenvoi.Keypressure(Mesures[position, NombreDieses], Mesures[position, nombreBemols], temps);
+                        monenvoi.Keypressure(temps, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
                         monenvoi.noteOn(1, valnumerateur, temps);

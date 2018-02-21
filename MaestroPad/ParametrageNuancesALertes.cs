@@ -30,45 +30,21 @@ namespace MaestroPad
      public static   int valeurdelaReprise = 0 ;
      public static   int numeroMesure = 0;
      public static int tempoval = 1;
-     public static int indicateur = 1;
+     public static int indic = 0;
      public static int VELOCITY = 0;
      public static int valnote = 25;//donne la valeur du mode choisi par defaut rien
      public static int valnumerateur = 0;
      public static int valdenominateur = 0;
      public static int nombresdemesure = 0;
+     public static int booleandereprise = 0;
+     public static int choixdumodenuance = 0;
      string nom = null;
      static Intent myIntent ;
      static String mesure;
-        //information du tabeau de mesures
      
 
 
-        //pour les buttons radios
-        [Export("Radiogroup_onclick")]
-
-       /* public void Radiogroup_onclick(View v)
-        {
-            switch (v.Id)
-            {
-                case Resource.Id.aucunModeNuanace:
-                    Mesures[numeroMesure-1, ModeNuance] = 0;
-                    break;
-                case Resource.Id.AscendantModeNuance:
-                    Mesures[numeroMesure-1, ModeNuance] = 1;
-                    break;
-                case Resource.Id.DescendantModeNuance:
-                    Mesures[numeroMesure-1, ModeNuance] = 2;
-                    break;
-                case Resource.Id.RepriseNon:
-                    Mesures[numeroMesure-1, BoolReprise] = 0;
-                    break;
-                case Resource.Id.RepriseOui:
-                    Mesures[numeroMesure-1, BoolReprise] = 1;
-                    break;
-                    
-            }
-        }
-        */
+     
 
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -78,7 +54,14 @@ namespace MaestroPad
 
 
             // Create your application here
-            
+
+            //buttons radios
+            RadioButton confirmationreprise = FindViewById<RadioButton>(Resource.Id.RepriseOui);
+            RadioButton nonconfirmationreprise = FindViewById<RadioButton>(Resource.Id.RepriseNon);
+
+            nonconfirmationreprise.Click += on_clickSwitchboolreprisenon;
+            confirmationreprise.Click += on_clickSwitchboolrepriseoui;
+
             //recuperation des valeurs de bemols dieses numero de fin de reprise
             EditText Numerodefinreprise = FindViewById<EditText>(Resource.Id.NumeroFinReprise);
             EditText nombrediese = FindViewById<EditText>(Resource.Id.NombreDiese);
@@ -105,46 +88,98 @@ namespace MaestroPad
                 string tmp2 = nombrediese.Text;
                 string tmp3 = nombrebemol.Text;
 
-                if(tmp != null && tmp != string.Empty)
+                if(booleandereprise==1 )
                 {
-                     finreprise = Convert.ToInt32(tmp.ToString());
+                    if (tmp != null && tmp != string.Empty)
+                    {
+                        finreprise = Convert.ToInt32(tmp.ToString());
+                        indic++;
+                    }
+                    else
+                    {
+                        control();
+                    }
+                    if (tmp2 != null && tmp2 != string.Empty)
+                    {
+                        nbrdiese = Convert.ToInt32(tmp2.ToString());
+                        indic++;
+                    }
+                    else
+                    {
+                        control();
+                    }
+                    if (tmp3 != null && tmp3 != string.Empty)
+                    {
+                        nbrbemol = Convert.ToInt32(tmp3.ToString());
+                        indic++;
+                    }
+                    else
+                    {
+                        control();
+                    }
+
+                    if (indic == 3)
+                    {
+                        int tmpo = numeroMesure - 1;
+                        myIntent = new Intent(this, typeof(ParametrageMesures));
+                        myIntent.PutExtra("numero_mesure", mesure);
+                        myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
+                        myIntent.PutExtra("choix_alerte", valeurcouleurAlerte.ToString());
+                        // myIntent.PutExtra("mode_nuance", Mesures[tmpo, ModeNuance]);
+                        myIntent.PutExtra("Bool_reprise", booleandereprise.ToString());
+                        myIntent.PutExtra("finreprise", finreprise.ToString());
+                        myIntent.PutExtra("nbr_diese", nbrdiese.ToString());
+                        myIntent.PutExtra("nbr_bemol", nbrbemol.ToString());
+                        this.SetResult(Result.Ok, myIntent);
+                        Finish();
+                    }
+                    else
+                    {
+                        control();
+                    }
+                    
                 }
                 else
                 {
-                    control();
+                    if (tmp2 != null && tmp2 != string.Empty)
+                    {
+                        nbrdiese = Convert.ToInt32(tmp2.ToString());
+                        indic++;
+                    }
+                    else
+                    {
+                        control();
+                    }
+                    if (tmp3 != null && tmp3 != string.Empty)
+                    {
+                        nbrbemol = Convert.ToInt32(tmp3.ToString());
+                        indic++;
+                    }
+                    else
+                    {
+                        control();
+                    }
+                    if (indic == 2)
+                    {
+                        int tmpo = numeroMesure - 1;
+                        myIntent = new Intent(this, typeof(ParametrageMesures));
+                        myIntent.PutExtra("numero_mesure", mesure);
+                        myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
+                        myIntent.PutExtra("choix_alerte", valeurcouleurAlerte.ToString());
+                        // myIntent.PutExtra("mode_nuance", Mesures[tmpo, ModeNuance]);
+                        myIntent.PutExtra("Bool_reprise", booleandereprise.ToString());
+                        myIntent.PutExtra("finreprise", finreprise.ToString());
+                        myIntent.PutExtra("nbr_diese", nbrdiese.ToString());
+                        myIntent.PutExtra("nbr_bemol", nbrbemol.ToString());
+                        this.SetResult(Result.Ok, myIntent);
+                        Finish();
+                    }
+                    else
+                    {
+                        control();
+                    }
                 }
-                if (tmp2 != null && tmp2 != string.Empty)
-                {
-                    nbrdiese = Convert.ToInt32(tmp2.ToString());
-                }
-                else
-                {
-                    control();
-                }
-                if (tmp3 != null && tmp3 != string.Empty)
-                {
-                    nbrbemol = Convert.ToInt32(tmp3.ToString());
-                }
-                else
-                {
-                    control();
-                }
-
-
-                
-
-                int tmpo = numeroMesure - 1;
-                myIntent = new Intent(this, typeof(ParametrageMesures));
-                myIntent.PutExtra("numero_mesure", mesure);
-                myIntent.PutExtra("choix_nuance", valeurdelanuance.ToString());
-                myIntent.PutExtra("choix_alerte", valeurcouleurAlerte.ToString());
-               // myIntent.PutExtra("mode_nuance", Mesures[tmpo, ModeNuance]);
-               // myIntent.PutExtra("Bool_reprise", Mesures[tmpo, BoolReprise]);
-                myIntent.PutExtra("finreprise", finreprise.ToString());
-                myIntent.PutExtra("nbr_diese", nbrdiese.ToString());
-                myIntent.PutExtra("nbr_bemol", nbrbemol.ToString());
-                this.SetResult(Result.Ok, myIntent);
-                Finish();
+               
 
             };
 
@@ -169,6 +204,22 @@ namespace MaestroPad
             Alerte.Adapter = adapter2;
 
         }
+
+  
+        //pour les radio button des reprises 
+        private void on_clickSwitchboolreprisenon(object sender, EventArgs e)
+        {
+            RadioButton monbouton = (RadioButton)sender;
+            booleandereprise = 0;
+            Toast.MakeText(ApplicationContext, "non est selectionné " + booleandereprise.ToString(), ToastLength.Long).Show();
+        }
+        private void on_clickSwitchboolrepriseoui(object sender, EventArgs e)
+        {
+            RadioButton monbouton = (RadioButton)sender;
+            booleandereprise = 1;
+            Toast.MakeText(ApplicationContext,"oui est selectionné " +booleandereprise.ToString(), ToastLength.Long).Show();
+        }
+
 
         //event de Alerte
         private void Alerte_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
