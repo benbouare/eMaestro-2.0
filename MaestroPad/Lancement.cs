@@ -168,7 +168,8 @@ namespace MaestroPad
         }
         public void envoi()
         {
-            int dejapasse = 0;
+            int[] dejapasse = new int[nombresdemesure];
+            
             int intermediaire = -1;
             int temps = 1;
             //int tampon = 0;
@@ -179,12 +180,13 @@ namespace MaestroPad
                     if (Mesures[position, BoolReprise] == 1)
                     {
                         intermediaire = position;
-                        //tampon = Mesures[intermediaire, NumerofinReprise] - 1;
+                        dejapasse[intermediaire] = 0;
+
                     }
-                    if ((intermediaire >=0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
+                    if ((intermediaire >=0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
                     {
                         position = intermediaire;
-                        dejapasse = 1;
+                        dejapasse[intermediaire] = 1;
                     }
                     //envoi  noteON et noteOFF
                     if (temps == 1)
@@ -227,12 +229,13 @@ namespace MaestroPad
                     if (Mesures[position, BoolReprise] == 1)
                     {
                         intermediaire = position;
-                        //tampon = Mesures[intermediaire, NumerofinReprise] - 1;
+                        dejapasse[intermediaire] = 0;
+
                     }
-                    if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
+                    if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
                     {
                         position = intermediaire;
-                        dejapasse++;
+                        dejapasse[intermediaire] = 1;
                     }
                     //envoi  noteON et noteOFF
                     if (temps == 1)
@@ -288,12 +291,13 @@ namespace MaestroPad
                     if (Mesures[position, BoolReprise] == 1)
                     {
                         intermediaire = position;
-                        //tampon = Mesures[intermediaire, NumerofinReprise] - 1;
+                        dejapasse[intermediaire] = 0;
+
                     }
-                    if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
+                    if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
                     {
                         position = intermediaire;
-                        dejapasse++;
+                        dejapasse[intermediaire] = 1;
                     }
                     //envoi  noteON et noteOFF
                     if (temps == 1)
