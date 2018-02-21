@@ -1,0 +1,7 @@
+c:\users\adama ben\documents\visual studio 2017\Projects\TestReprise\TestReprise\bin\Debug\TestReprise.exe.config
+c:\users\adama ben\documents\visual studio 2017\Projects\TestReprise\TestReprise\bin\Debug\TestReprise.exe
+c:\users\adama ben\documents\visual studio 2017\Projects\TestReprise\TestReprise\bin\Debug\TestReprise.pdb
+c:\users\adama ben\documents\visual studio 2017\Projects\TestReprise\TestReprise\obj\Debug\TestReprise.csprojResolveAssemblyReference.cache
+c:\users\adama ben\documents\visual studio 2017\Projects\TestReprise\TestReprise\obj\Debug\TestReprise.csproj.CoreCompileInputs.cache
+c:\users\adama ben\documents\visual studio 2017\Projects\TestReprise\TestReprise\obj\Debug\TestReprise.exe
+c:\users\adama ben\documents\visual studio 2017\Projects\TestReprise\TestReprise\obj\Debug\TestReprise.pdb
