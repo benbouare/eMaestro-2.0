@@ -42,6 +42,7 @@ namespace MaestroPad
         int mod3 = 1;
       //  int mod4 = 1;
         public static int position = 0;
+        int[] dejapasse;
 
 
         Thread mythread;
@@ -65,11 +66,9 @@ namespace MaestroPad
 
             //initialisation 
             Mesures = new int[nombresdemesure,colonne];
-           /* for (int i = 0; i < nombresdemesure; i++)
-            {
-                nuances[i] = 0; //initialisation des nuances à aucune nuance pour chaque mesure
-            }
-            */
+             dejapasse = new int[nombresdemesure];
+
+
             string numerateur = Intent.GetStringExtra("valeurnumerateur") ?? "numerateur not available";
             valnumerateur = Convert.ToInt32(numerateur);
             string denominateur = Intent.GetStringExtra("valeurdenominateur") ?? "denominateur not available";
@@ -95,6 +94,11 @@ namespace MaestroPad
                 Mesures[j, NumerofinReprise] = Convert.ToInt32(tmp5);
                 Mesures[j, NombreDieses] = Convert.ToInt32(tmp6);
                 Mesures[j, nombreBemols] = Convert.ToInt32(tmp7);
+                if (Mesures[j, BoolReprise] == 1)
+                {
+                    dejapasse[j] = 0;
+                    Toast.MakeText(ApplicationContext, "dejapasse de " + j + " " + dejapasse[j].ToString(), ToastLength.Long).Show();
+                }
             }
 
             //les boutons 
@@ -168,8 +172,6 @@ namespace MaestroPad
         }
         public void envoi()
         {
-            int[] dejapasse = new int[nombresdemesure];
-            
             int intermediaire = -1;
             int temps = 1;
             //int tampon = 0;
@@ -180,14 +182,9 @@ namespace MaestroPad
                     if (Mesures[position, BoolReprise] == 1)
                     {
                         intermediaire = position;
-                        dejapasse[intermediaire] = 0;
 
                     }
-                    if ((intermediaire >=0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
-                    {
-                        position = intermediaire;
-                        dejapasse[intermediaire] = 1;
-                    }
+          
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
@@ -217,7 +214,12 @@ namespace MaestroPad
 
                         temps = 1;
                         position++;
-                     //  nombresdemesure--;
+                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
+                        {
+                            position = intermediaire;
+                            dejapasse[intermediaire] = 1;
+                        }
+                        //  nombresdemesure--;
 
                     }
                 }
@@ -232,11 +234,7 @@ namespace MaestroPad
                         dejapasse[intermediaire] = 0;
 
                     }
-                    if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
-                    {
-                        position = intermediaire;
-                        dejapasse[intermediaire] = 1;
-                    }
+                   
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
@@ -274,7 +272,12 @@ namespace MaestroPad
 
                         temps = 1;
                         position++;
-                       //nombresdemesure--;
+                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
+                        {
+                            position = intermediaire;
+                            dejapasse[intermediaire] = 1;
+                        }
+                        //nombresdemesure--;
 
                     }
                 }
@@ -294,11 +297,7 @@ namespace MaestroPad
                         dejapasse[intermediaire] = 0;
 
                     }
-                    if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
-                    {
-                        position = intermediaire;
-                        dejapasse[intermediaire] = 1;
-                    }
+                   
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
@@ -339,7 +338,12 @@ namespace MaestroPad
                         //   tmp = 2;
                         ind = 0;
                         position++;
-                      // nombresdemesure--;
+                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
+                        {
+                            position = intermediaire;
+                            dejapasse[intermediaire] = 1;
+                        }
+                        // nombresdemesure--;
                     }
 
 

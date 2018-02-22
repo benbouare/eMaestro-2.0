@@ -112,8 +112,8 @@ namespace MaestroPad
 
                     //Toast.MakeText(ApplicationContext, nua, ToastLength.Long).Show();
                     //Toast.MakeText(ApplicationContext, Mesures[(Convert.ToInt32(num) - 1),nuance].ToString(), ToastLength.Long).Show();
-                    //Toast.MakeText(ApplicationContext,"La valeur de bool de la mesure "+ num + " " + BoolRep, ToastLength.Long).Show();
-                    //Toast.MakeText(ApplicationContext, "La mesure de fin " + numfinrep.ToString(), ToastLength.Long).Show();
+                    Toast.MakeText(ApplicationContext,"La valeur de bool de la mesure "+ num + " " + BoolRep, ToastLength.Long).Show();
+                    Toast.MakeText(ApplicationContext, "La mesure de fin " + numfinrep.ToString(), ToastLength.Long).Show();
                 }
             }
            
