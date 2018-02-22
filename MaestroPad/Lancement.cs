@@ -37,6 +37,7 @@ namespace MaestroPad
         public static int NumerofinReprise = 4;
         public static int NombreDieses = 5;
         public static int nombreBemols = 6;
+        public static int passagedereprise = 1;
         int mod1 = 1;
         int mod2 = 1;
         int mod3 = 1;
@@ -68,7 +69,7 @@ namespace MaestroPad
             Mesures = new int[nombresdemesure,colonne];
              dejapasse = new int[nombresdemesure];
 
-
+            //recuperation des données
             string numerateur = Intent.GetStringExtra("valeurnumerateur") ?? "numerateur not available";
             valnumerateur = Convert.ToInt32(numerateur);
             string denominateur = Intent.GetStringExtra("valeurdenominateur") ?? "denominateur not available";
@@ -188,6 +189,15 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        // pour demarrer 
+                        monenvoi.controlChange(10, 0, temps);//envoi de la nuance et l'alerte
+                        monenvoi.noteOn(1, valnumerateur, valnote);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+                        Thread.Sleep(tempoval);
+                        monenvoi.noteOff(2, 1, temps);
+                       
+
+                        // debut de la partition 
                         monenvoi.Keypressure(temps, Mesures[position,nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance et l'alerte
                         monenvoi.noteOn(1, valnumerateur, valnote);
@@ -223,6 +233,7 @@ namespace MaestroPad
 
                     }
                 }
+                monenvoi.controlChange(10,0, 25);//envoi de la nuance et l'alerte
             }
             if (valnote == 26)//binaire
             {
@@ -238,6 +249,16 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        //pour demarrer
+                        monenvoi.controlChange(10, 0, temps);//envoi de la nuance et l'alerte
+                        monenvoi.noteOn(1, valnumerateur, valnote);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+                        Thread.Sleep(tempoval/2);
+                        monenvoi.noteOff(2, 1, temps );
+                        Thread.Sleep(tempoval / 2);
+                        monenvoi.noteOff(2, 2, temps );
+
+                        //debut de la partition
                         monenvoi.Keypressure(temps, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
@@ -281,6 +302,7 @@ namespace MaestroPad
 
                     }
                 }
+                monenvoi.controlChange(10, 0, 25);//envoi de la nuance et l'alerte
 
             }
             if (valnote == 27)//ternaire
@@ -301,6 +323,19 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
+                        //pour demarrer
+                        monenvoi.controlChange(10, 0, temps);//envoi de la nuance et l'alerte
+                        monenvoi.noteOn(1, valnumerateur, valnote);
+                        monenvoi.noteOn(1, valnumerateur, temps);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, 1, temps);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, 2, temps);
+                        Thread.Sleep(tempoval / 3);
+                        monenvoi.noteOff(2, 3, temps);
+
+
+                        //debut de la partition
                         monenvoi.Keypressure(temps, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
                         monenvoi.noteOn(1, valnumerateur, valnote);
@@ -348,6 +383,7 @@ namespace MaestroPad
 
 
                 }
+                monenvoi.controlChange(10, 0, 25);//envoi de la nuance et l'alerte
             }
 
 

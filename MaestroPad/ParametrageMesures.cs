@@ -35,6 +35,7 @@ namespace MaestroPad
         static string numfinrep = null;
         static string nbrdies = null;
         static string nbrbem = null;
+        static string passage = null;
 
         // ArrayList tabdeboutons = new ArrayList();
         //information du tabeau de mesures
@@ -92,7 +93,6 @@ namespace MaestroPad
                 //Toast.MakeText(ApplicationContext, "Nous sommes dans le onactivityresult", ToastLength.Long).Show();
                 if (resultCode == Result.Ok)
                 {
-
                     modnu = data.GetStringExtra("mode_nuance");
                     BoolRep = data.GetStringExtra("Bool_reprise");
                     numfinrep = data.GetStringExtra("finreprise");
@@ -146,6 +146,7 @@ namespace MaestroPad
                             myintent.PutExtra("valeurdenominateur",valdenominateur.ToString());
                             myintent.PutExtra("valeurmode",valnote.ToString());
                             myintent.PutExtra("tempoval",tempoval.ToString());
+                            myintent.PutExtra("nbr_passage", passage);
                             for(int j = 1; j <=tmp-2; j++)
                             {
                                 myintent.PutExtra("mesure " + j + "nuance", Mesures[(j - 1),nuance].ToString());

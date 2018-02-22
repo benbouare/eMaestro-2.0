@@ -16,7 +16,7 @@ using System.Reflection.Emit;
 using static Java.Interop.JniEnvironment;
 using Java.Lang.Ref;
 using Java.Util.Prefs;
-
+using Android.Graphics;
 
 namespace MaestroPad
 
@@ -45,10 +45,12 @@ namespace MaestroPad
      public static int finreprise = 0;
      public static int nbrdiese = 0;
      public static int nbrbemol = 0;
+     public static int nbrdepassage = 1;
 
      public static string tmp = null;
      public static string tmp2 = null;
      public static string tmp3 = null;
+     public static string tmp4 = null;
 
 
 
@@ -222,8 +224,33 @@ namespace MaestroPad
         {
             var Alerteselected = (Spinner)sender; 
             valeurcouleurAlerte = Convert.ToInt32(Alerteselected.SelectedItemId.ToString());
+            switch (valeurcouleurAlerte)
+            {
+                case 1:
+                    Alerteselected.SetBackgroundColor(Color.Crimson);
+                    break;
+                case 2:
+                    Alerteselected.SetBackgroundColor(Color.DarkOliveGreen);
+                    break;
+                case 3:
+                    Alerteselected.SetBackgroundColor(Color.DeepPink);
+                    break;
+                case 4:
+                    Alerteselected.SetBackgroundColor(Color.LemonChiffon);
+                    break;
+                case 5:
+                    Alerteselected.SetBackgroundColor(Color.Navy);
+                    break;
+                case 6:
+
+                    Alerteselected.SetBackgroundColor(Color.Firebrick);
+                    break;
+                case 0:
+                    Alerteselected.SetBackgroundColor(Color.Gray);
+                    break;
+            }
             //Toast.MakeText(ApplicationContext, valeurcouleurAlerte.ToString(), ToastLength.Long).Show();
-  
+
 
         }
         //event de Nuance
