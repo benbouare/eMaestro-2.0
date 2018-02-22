@@ -1,0 +1,16 @@
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\bin\Debug\MaestroPad.dll
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\bin\Debug\MaestroPad.pdb
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\bin\Debug\MaestroPad.MaestroPad.apk
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\bin\Debug\MaestroPad.MaestroPad-Signed.apk
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\MaestroPad.csproj.CoreCompileInputs.cache
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\MaestroPad.dll
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\MaestroPad.pdb
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\android\bin\MaestroPad.MaestroPad.apk
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\res\layout\parametrage.xml
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\res\layout\parametragesecondaire.xml
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\res\layout\main.xml
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\res\values\strings.xml
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\R.cs.flag
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\uploadflags.txt
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\bin\Debug\MaestroPad.dll.mdb
+D:\Documents\Cours\ING INFO\ESIR SI 3\PROJET INDUS\eMaestro\MaestroPad\obj\Debug\android\assets\MaestroPad.dll.mdb
