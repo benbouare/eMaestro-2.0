@@ -47,6 +47,7 @@ namespace MaestroPad
 
 
         Thread mythread;
+        Thread mythread1;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -54,6 +55,7 @@ namespace MaestroPad
             //parametrage de midi et threads
             manager = (MidiManager)GetSystemService(MidiService);
             mythread = new Thread(new ThreadStart(envoi));
+            mythread1 = new Thread(new ThreadStart(envoi));
 
             // Create your application here
 
@@ -112,7 +114,7 @@ namespace MaestroPad
             //event des buttons
             lancer.Click += delegate
             {
-                Toast.MakeText(ApplicationContext, Mesures[2, NumerofinReprise].ToString(), ToastLength.Long).Show();
+              //  Toast.MakeText(ApplicationContext, Mesures[2, NumerofinReprise].ToString(), ToastLength.Long).Show();
                 mod1++;
                 if((mod1 % 2)== 0)
                 {
@@ -123,6 +125,7 @@ namespace MaestroPad
                 }
                 else
                 {
+                    mythread1.Start();
                     string message = " Excecution en cours ";
                     Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                 }
@@ -189,13 +192,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        // pour demarrer 
-                        monenvoi.controlChange(10, 0, temps);//envoi de la nuance et l'alerte
-                        monenvoi.noteOn(1, valnumerateur, valnote);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-                        Thread.Sleep(tempoval);
-                        monenvoi.noteOff(2, 1, temps);
-                       
+        
 
                         // debut de la partition 
                         monenvoi.Keypressure(temps, Mesures[position,nombreBemols], Mesures[position, NombreDieses]);
@@ -233,7 +230,7 @@ namespace MaestroPad
 
                     }
                 }
-                monenvoi.controlChange(10,0, 25);//envoi de la nuance et l'alerte
+                Thread.CurrentThread.Abort();
             }
             if (valnote == 26)//binaire
             {
@@ -249,14 +246,7 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        //pour demarrer
-                        monenvoi.controlChange(10, 0, temps);//envoi de la nuance et l'alerte
-                        monenvoi.noteOn(1, valnumerateur, valnote);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-                        Thread.Sleep(tempoval/2);
-                        monenvoi.noteOff(2, 1, temps );
-                        Thread.Sleep(tempoval / 2);
-                        monenvoi.noteOff(2, 2, temps );
+      
 
                         //debut de la partition
                         monenvoi.Keypressure(temps, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
@@ -302,8 +292,7 @@ namespace MaestroPad
 
                     }
                 }
-                monenvoi.controlChange(10, 0, 25);//envoi de la nuance et l'alerte
-
+                Thread.CurrentThread.Abort();
             }
             if (valnote == 27)//ternaire
             {
@@ -323,16 +312,6 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-                        //pour demarrer
-                        monenvoi.controlChange(10, 0, temps);//envoi de la nuance et l'alerte
-                        monenvoi.noteOn(1, valnumerateur, valnote);
-                        monenvoi.noteOn(1, valnumerateur, temps);
-                        Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, 1, temps);
-                        Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, 2, temps);
-                        Thread.Sleep(tempoval / 3);
-                        monenvoi.noteOff(2, 3, temps);
 
 
                         //debut de la partition
@@ -383,7 +362,7 @@ namespace MaestroPad
 
 
                 }
-                monenvoi.controlChange(10, 0, 25);//envoi de la nuance et l'alerte
+                Thread.CurrentThread.Abort();
             }
 
 

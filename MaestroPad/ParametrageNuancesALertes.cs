@@ -45,12 +45,16 @@ namespace MaestroPad
      public static int finreprise = 0;
      public static int nbrdiese = 0;
      public static int nbrbemol = 0;
-     public static int nbrdepassage = 1;
+     
 
      public static string tmp = null;
      public static string tmp2 = null;
      public static string tmp3 = null;
      public static string tmp4 = null;
+
+        EditText Numerodefinreprise;
+        EditText nombrediese;
+        EditText nombrebemol;
 
 
 
@@ -72,20 +76,33 @@ namespace MaestroPad
             nonconfirmationreprise.Click += on_clickSwitchboolreprisenon;
             confirmationreprise.Click += on_clickSwitchboolrepriseoui;
 
-            //recuperation des valeurs de bemols dieses numero de fin de reprise
-            EditText Numerodefinreprise = FindViewById<EditText>(Resource.Id.NumeroFinReprise);
-            EditText nombrediese = FindViewById<EditText>(Resource.Id.NombreDiese);
-            EditText nombrebemol = FindViewById<EditText>(Resource.Id.NombreBemol);
+            //pour la recuperation des valeurs de bemols dieses numero de fin de reprise
+             Numerodefinreprise = FindViewById<EditText>(Resource.Id.NumeroFinReprise);
+            Numerodefinreprise.Text = finreprise.ToString();
+             nombrediese = FindViewById<EditText>(Resource.Id.NombreDiese);
+            nombrediese.Text = nbrdiese.ToString();
+             nombrebemol = FindViewById<EditText>(Resource.Id.NombreBemol);
+            nombrebemol.Text = nbrbemol.ToString();
 
-           
+
             
+
 
             Button valider = FindViewById<Button>(Resource.Id.ValiderMesure);
             Button retour = FindViewById<Button>(Resource.Id.AnnulerMesure);
 
-            //recuperation du numero de la mesure
+            //recuperation des informations de la mesure
             mesure = Intent.GetStringExtra("id_bouton") ?? "echec de recuperation du numero de la mesure";
             numeroMesure = Convert.ToInt32(mesure);
+            valeurdelanuance = Convert.ToInt32(Intent.GetStringExtra("choix_nuance"));
+            valeurcouleurAlerte = Convert.ToInt32(Intent.GetStringExtra("choix_alerte"));
+             booleandereprise = Convert.ToInt32(Intent.GetStringExtra("Bool_reprise"));
+             finreprise = Convert.ToInt32(Intent.GetStringExtra("finreprise"));
+            nbrdiese = Convert.ToInt32(Intent.GetStringExtra("nbr_diese"));
+            nbrbemol = Convert.ToInt32(Intent.GetStringExtra("nbr_bemol"));
+
+            
+
 
             // event des bouttons
             valider.Click += delegate
@@ -96,9 +113,11 @@ namespace MaestroPad
                 {
                    
                     tmp2 = nombrediese.Text.ToString();
+                    
                     if (tmp2 != null && tmp2 != string.Empty)
                     {
                         nbrdiese = Convert.ToInt32(tmp2);
+                        nombrediese.Text = nbrdiese.ToString();
                     }
                     else
                     {
@@ -109,6 +128,7 @@ namespace MaestroPad
                     if (tmp3 != null && tmp3 != string.Empty)
                     {
                         nbrbemol = Convert.ToInt32(tmp3);
+                        nombrebemol.Text = tmp3.ToString();
                     }
                     else
                     {
@@ -118,6 +138,7 @@ namespace MaestroPad
                     tmp = Numerodefinreprise.Text.ToString();
                     if (tmp != null && tmp != string.Empty)
                     {
+                        Numerodefinreprise.Text = tmp.ToString();
                         finreprise = Convert.ToInt32(tmp);
                         int tmpo = numeroMesure - 1;
                         myIntent = new Intent(this, typeof(ParametrageMesures));
@@ -145,6 +166,7 @@ namespace MaestroPad
                     if (tmp2 != null && tmp2 != string.Empty)
                     {
                         nbrdiese = Convert.ToInt32(tmp2);
+                        nombrediese.Text = tmp2.ToString();
                        
                     }
                     else
@@ -156,6 +178,7 @@ namespace MaestroPad
                     if (tmp3 != null && tmp3 != string.Empty)
                     {
                         nbrbemol = Convert.ToInt32(tmp3);
+                        nombrebemol.Text = tmp3.ToString();
                     }
                     else
                     {
@@ -203,7 +226,43 @@ namespace MaestroPad
 
         }
 
-  
+        // resume 
+        protected override void OnRestoreInstanceState(Bundle bundle)
+        {
+            base.OnRestoreInstanceState(bundle);
+
+             Numerodefinreprise.Text = bundle.GetString("finreprise");
+            valeurdelanuance = Convert.ToInt32(Numerodefinreprise.Text.ToString());
+             nombrediese.Text =bundle.GetString("nbr_diese");
+            nbrdiese = Convert.ToInt32(nombrediese.Text.ToString());
+             nombrebemol.Text=bundle.GetString("nbr_bemol");
+            nbrbemol = Convert.ToInt32(nombrebemol.Text.ToString());
+            booleandereprise = Convert.ToInt32(bundle.GetString("Bool_reprise"));
+            valeurcouleurAlerte = Convert.ToInt32(bundle.GetString("choix_alerte"));
+
+
+        }
+
+        //save all value
+        protected override void OnSaveInstanceState(Bundle bundle)
+        {
+            base.OnSaveInstanceState(bundle);
+
+            bundle.PutString("nom", nom); ;
+            bundle.PutString("nombresdemesure", mesure);
+            bundle.PutString("choix_nuance", valeurdelanuance.ToString());
+            bundle.PutString("Bool_reprise", booleandereprise.ToString());
+            bundle.PutString("finreprise", finreprise.ToString());
+            bundle.PutString("nbr_diese", nbrdiese.ToString());
+            bundle.PutString("nbr_bemol", nbrbemol.ToString());
+            bundle.PutString("choix_alerte", valeurcouleurAlerte.ToString());
+
+        }
+
+
+
+
+
         //pour les radio button des reprises 
         private void on_clickSwitchboolreprisenon(object sender, EventArgs e)
         {
@@ -222,7 +281,7 @@ namespace MaestroPad
         //event de Alerte
         private void Alerte_ItemSelected(object sender, AdapterView.ItemSelectedEventArgs e)
         {
-            var Alerteselected = (Spinner)sender; 
+            var Alerteselected = (Spinner)sender;
             valeurcouleurAlerte = Convert.ToInt32(Alerteselected.SelectedItemId.ToString());
             switch (valeurcouleurAlerte)
             {

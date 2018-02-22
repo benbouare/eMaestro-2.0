@@ -48,10 +48,13 @@ namespace MaestroPad
         public static int NumerofinReprise = 4;
         public static int NombreDieses = 5;
         public static int nombreBemols = 6;
+        public static int inter;
 
-        
 
-        protected override void OnCreate(Bundle savedInstanceState)
+
+
+
+        protected override void OnCreate(Bundle bundle)
         {
             //reception du nombre de mesures 
             string mesure = Intent.GetStringExtra("nombresdemesure") ?? "nombresdemesure not available";
@@ -69,7 +72,7 @@ namespace MaestroPad
             }
             
 
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(bundle);
             createLayoutDynamically(nombresdemesure);//crée les buttons
             //recevoir les informations des parametrages precedents 
             nom = Intent.GetStringExtra("nom") ?? "nom not available";
@@ -85,6 +88,42 @@ namespace MaestroPad
             
           
         }
+/*
+        // resume 
+        protected override void OnRestoreInstanceState(Bundle bundle)
+        {
+            base.OnRestoreInstanceState(bundle);
+            nom = bundle.GetString("nom");
+            modnu = bundle.GetString("mode_nuance");
+            BoolRep = bundle.GetString("Bool_reprise");
+            numfinrep = bundle.GetString("finreprise");
+            nbrdies = bundle.GetString("nbr_diese");
+            nbrbem = bundle.GetString("nbr_bemol");
+            num = bundle.GetString("numero_mesure");
+            nua = bundle.GetString("choix_nuance");
+            aler = bundle.GetString("choix_alerte");
+      
+
+
+        }
+
+
+
+        //save all value
+        protected override void OnSaveInstanceState(Bundle bundle)
+        {
+            base.OnSaveInstanceState(bundle);
+
+            bundle.PutString("nom", nom);
+            bundle.PutString("Bool_reprise", Mesures[inter, BoolReprise].ToString());
+            bundle.PutString("finreprise", Mesures[inter, NumerofinReprise].ToString());
+            bundle.PutString("nbr_diese", Mesures[inter, NombreDieses].ToString());
+            bundle.PutString("nbr_bemol", Mesures[inter, nombreBemols].ToString());
+            bundle.PutString("choix_nuance", Mesures[inter, nuance].ToString());
+            bundle.PutString("choix_alerte", Mesures[inter, alerte].ToString());
+
+        }*/
+
         protected override void OnActivityResult(int requestCode, Result resultCode, Intent data)
         {
             base.OnActivityResult(requestCode, resultCode, data);
@@ -93,7 +132,7 @@ namespace MaestroPad
                 //Toast.MakeText(ApplicationContext, "Nous sommes dans le onactivityresult", ToastLength.Long).Show();
                 if (resultCode == Result.Ok)
                 {
-                    modnu = data.GetStringExtra("mode_nuance");
+                   // modnu = data.GetStringExtra("mode_nuance");
                     BoolRep = data.GetStringExtra("Bool_reprise");
                     numfinrep = data.GetStringExtra("finreprise");
                     nbrdies = data.GetStringExtra("nbr_diese");
@@ -118,6 +157,8 @@ namespace MaestroPad
             }
            
         }
+
+
         private void createLayoutDynamically(int n)
         {
             int tmp = n + 2;
@@ -202,6 +243,15 @@ namespace MaestroPad
         {
             Intent intent = new Intent(this, typeof(ParametrageNuancesALertes));
             intent.PutExtra("id_bouton", numeroMesure.ToString());
+            /*intent.PutExtra("mode_nuance", modnu);
+            intent.PutExtra("Bool_reprise", BoolRep);
+            intent.PutExtra("finreprise", numfinrep);
+            intent.PutExtra("nbr_diese", nbrdies);
+            intent.PutExtra("nbr_bemol", nbrbem);
+            intent.PutExtra("choix_nuance", nua);
+            intent.PutExtra("choix_alerte", aler);*/
+
+
             //Toast.MakeText(ApplicationContext, numeroMesure.ToString(), ToastLength.Long).Show();
             StartActivityForResult(intent,0);
         }
