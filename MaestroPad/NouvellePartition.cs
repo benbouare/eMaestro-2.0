@@ -14,30 +14,34 @@ namespace MaestroPad
         public static int valnum = 0;
        public static int valdenom = 0;
         public static string nom = null;
+        string mesure = null;
+        EditText nompartition;
+        EditText nombreMesures;
+        EditText numerateur;
+        EditText denominateur;
        // static Mapartition partition=  new Mapartition();
 
 
 
-        protected override void OnCreate(Bundle savedInstanceState)
+        protected override void OnCreate(Bundle bundle)
         {
 
            
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(bundle);
 
             // Create your application here
             SetContentView(Resource.Layout.Parametrage);
             Button creer = FindViewById<Button>(Resource.Id.createpartition);
             Button retour = FindViewById<Button>(Resource.Id.Home);
-            EditText nompartition = FindViewById<EditText>(Resource.Id.namePartition);
-            EditText nombreMesures = FindViewById<EditText>(Resource.Id.nbrmesures);
-            EditText numerateur = FindViewById<EditText>(Resource.Id.valnumerateur);
-            EditText denominateur = FindViewById<EditText>(Resource.Id.valdenominateur);
+            nompartition = FindViewById<EditText>(Resource.Id.namePartition);
+            nombreMesures = FindViewById<EditText>(Resource.Id.nbrmesures);
+            numerateur = FindViewById<EditText>(Resource.Id.valnumerateur);
+            denominateur = FindViewById<EditText>(Resource.Id.valdenominateur);
 
             retour.Click += (sender, e) =>
             {
-                
-                var intent = new Intent(this, typeof(MainActivity));
-                StartActivity(intent);
+
+                Finish();
             };
             creer.Click += (sender, e) =>
             {
@@ -46,24 +50,21 @@ namespace MaestroPad
                 nom = nompartition.Text.ToString();
                // partition.setNompartition(nom);
 
-                string mesure = nombreMesures.Text.ToString();
+                mesure = nombreMesures.Text.ToString();
 
 
                 //convertir le nombre de mesure en int
                 if(mesure != string.Empty && mesure != null)
                 {
                     nbrMesure = Convert.ToInt32(mesure);
-                   // partition.setNombredemesure(nbrMesure);
                 }
                 if (numerateur.Text.ToString() != string.Empty && numerateur.Text.ToString() != null)
                 {
                     valnum = Convert.ToInt32(numerateur.Text.ToString());
-                   // partition.SetValeurNumerateur(valnum);
                 }
                 if(denominateur.Text.ToString() != string.Empty && denominateur.Text.ToString() != null)
                 {
                     valdenom = Convert.ToInt32(denominateur.Text.ToString());
-                  //  partition.setValeurDenominateur(valdenom);
                 }
                 
                 
@@ -117,7 +118,11 @@ namespace MaestroPad
                         intent.PutExtra("denominateur", denominateur.Text.ToString());
                         //intent.PutExtra("partition", partition);
                        StartActivity(intent);
-                   }
+                        Toast.MakeText(ApplicationContext,"Nom "+ nompartition.Text.ToString(), ToastLength.Long).Show();
+                        Toast.MakeText(ApplicationContext,"Nombre de Mesures "+ nombreMesures.Text.ToString(), ToastLength.Long).Show();
+                        Toast.MakeText(ApplicationContext,"valeur du numerateur "+ numerateur.Text.ToString(), ToastLength.Long).Show();
+                        Toast.MakeText(ApplicationContext,"valeur du denominateur "+ denominateur.Text.ToString(), ToastLength.Long).Show();
+                    }
 
 
                  }
@@ -127,7 +132,36 @@ namespace MaestroPad
            };
 
        }
-       private void control()
+
+        // resume 
+        protected override void OnRestoreInstanceState(Bundle bundle)
+        {
+            base.OnRestoreInstanceState(bundle);
+
+            nom = bundle.GetString("nom");
+            nompartition.Text = nom;
+            mesure = bundle.GetString("nombresdemesure");
+            nombreMesures.Text = mesure;
+            valnum = Convert.ToInt32(bundle.GetString("numerateur"));
+            numerateur.Text = valnum.ToString();
+            valdenom = Convert.ToInt32(bundle.GetString("denominateur"));
+            denominateur.Text = valdenom.ToString();
+
+        }
+
+        //save all value
+        protected override void OnSaveInstanceState(Bundle bundle)
+        {
+            base.OnSaveInstanceState(bundle);
+
+            bundle.PutString("nom", nom); ;
+            bundle.PutString("nombresdemesure", mesure);
+            bundle.PutString("numerateur", valnum.ToString());
+            bundle.PutString("denominateur", valdenom.ToString());
+
+
+        }
+        private void control()
        {
            //
            string message = string.Empty;

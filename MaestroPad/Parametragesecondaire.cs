@@ -12,8 +12,7 @@ using static Java.Interop.JniEnvironment;
 using Java.Lang.Ref;
 using Java.Util.Prefs;
 using Android.Views;
-
-
+using Java.Lang;
 
 namespace MaestroPad
 {
@@ -32,9 +31,15 @@ namespace MaestroPad
         public static int nombresdemesure = 0;
         string  nom = null;
         string tmp = null;
+        string mesure = null;
+        string numerateur = null;
+        string denominateur = null;
+        RadioButton modechoisi;
+        EditText tempo;
+        RadioGroup choixmode;
 
 
-       // Thread mythread;
+        // Thread mythread;
 
 
 
@@ -63,33 +68,32 @@ namespace MaestroPad
 
             //recuperaion des données de l'étape precedente on doit les envoyer à l'activité suivante afin de les stocker dand un objet de type Mapartition
             nom = Intent.GetStringExtra("nom") ?? "nom not available";
-            string mesure = Intent.GetStringExtra("nombresdemesure") ?? "nombresdemesure not available";
+            mesure = Intent.GetStringExtra("nombresdemesure") ?? "nombresdemesure not available";
             nombresdemesure = Convert.ToInt32(mesure);
-            string numerateur = Intent.GetStringExtra("numerateur") ?? "numerateur not available";
+            numerateur = Intent.GetStringExtra("numerateur") ?? "numerateur not available";
             valnumerateur = Convert.ToInt32(numerateur);
-            string denominateur = Intent.GetStringExtra("denominateur") ?? "denominateur not available";
+            denominateur = Intent.GetStringExtra("denominateur") ?? "denominateur not available";
             valdenominateur = Convert.ToInt32(denominateur);
 
             
             // Create your application here
             Button back = FindViewById<Button>(Resource.Id.back);
             Button Suivant = FindViewById<Button>(Resource.Id.Next);
-            EditText tempo = FindViewById<EditText>(Resource.Id.tempovaleur);
+            tempo = FindViewById<EditText>(Resource.Id.tempovaleur);
 
             // choix de la note des BPM
             RadioGroup choixnotes = FindViewById<RadioGroup>(Resource.Id.notedutempo);
             RadioButton choixnote = FindViewById<RadioButton>(choixnotes.CheckedRadioButtonId);
 
             // choix du mode de la mesure 
-            RadioGroup choixmode = FindViewById<RadioGroup>(Resource.Id.ModeMesure);
-            RadioButton modechoisi = FindViewById<RadioButton>(choixmode.CheckedRadioButtonId);
+            choixmode = FindViewById<RadioGroup>(Resource.Id.ModeMesure);
+             modechoisi = FindViewById<RadioButton>(choixmode.CheckedRadioButtonId);
 
 
 
             back.Click += (sender, e) =>
             {
-                var intent = new Intent(this, typeof(NouvellePartition));
-                StartActivity(intent);
+                Finish();
             };
             Suivant.Click += (sender, e) =>
             {
@@ -98,6 +102,7 @@ namespace MaestroPad
                 {
                    if( (tempoval = Convert.ToInt32(tmp.ToString())) != 0)
                     {
+                        tempo.Text = tmp.ToString();
                         indicateur++;
                         tempoval = (60000 / tempoval);
 
@@ -111,6 +116,8 @@ namespace MaestroPad
                         intent.PutExtra("valeurdumode", valnote.ToString());
                         //intent.PutExtra("partition", partition);
                         StartActivity(intent);
+                        Toast.MakeText(ApplicationContext, tempoval.ToString(), ToastLength.Long).Show();
+                        Toast.MakeText(ApplicationContext, valnote.ToString(), ToastLength.Long).Show();
                     }
                     else
                     {
@@ -131,6 +138,37 @@ namespace MaestroPad
 
 
             };
+        }
+        // resume 
+        protected override void OnRestoreInstanceState(Bundle bundle)
+        {
+            base.OnRestoreInstanceState(bundle);
+
+            nom = bundle.GetString("nom");
+            mesure = bundle.GetString("nombresdemesure");
+            numerateur = bundle.GetString("numerateur");
+            denominateur = bundle.GetString("denominateur");
+            tempoval = Convert.ToInt32(bundle.GetString("valeurdutempo"));
+            tempo.Text = bundle.GetString("valeurdutempo");
+            valnote = Convert.ToInt32(bundle.GetString("valeurdumode"));
+            
+
+        }
+
+
+
+        //save all value
+        protected override void OnSaveInstanceState(Bundle bundle)
+        {
+            base.OnSaveInstanceState(bundle);
+
+            bundle.PutString("nom", nom); ;
+            bundle.PutString("nombresdemesure", mesure);
+            bundle.PutString("numerateur", numerateur);
+            bundle.PutString("denominateur", denominateur);
+            bundle.PutString("valeurdutempo", tempoval.ToString());
+            bundle.PutString("valeurdumode", valnote.ToString());
+          
         }
         private void verif_tempo()
         {
