@@ -173,7 +173,7 @@ namespace MaestroPad
                 //int tampon = 0;
                 if (valnote == 25)//rien
                 {
-                    while (position < 1)
+                    while (position < 2)
                     {
                         if (Mesures[position, BoolReprise] == 1)
                         {
@@ -226,7 +226,7 @@ namespace MaestroPad
                 }
                 if (valnote == 26)//binaire
                 {
-                    while (position < 1)
+                    while (position < 2)
                     {
                         if (Mesures[position, BoolReprise] == 1)
                         {
@@ -291,7 +291,7 @@ namespace MaestroPad
                     int ind = 0;
                     valnumerateur = valnumerateur / 3;
 
-                    while (position < 1)
+                    while (position < 2)
                     {
                         if (Mesures[position, BoolReprise] == 1)
                         {
