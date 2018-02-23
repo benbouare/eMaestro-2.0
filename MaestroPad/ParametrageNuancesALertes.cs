@@ -78,11 +78,8 @@ namespace MaestroPad
 
             //pour la recuperation des valeurs de bemols dieses numero de fin de reprise
              Numerodefinreprise = FindViewById<EditText>(Resource.Id.NumeroFinReprise);
-            Numerodefinreprise.Text = finreprise.ToString();
              nombrediese = FindViewById<EditText>(Resource.Id.NombreDiese);
-            nombrediese.Text = nbrdiese.ToString();
              nombrebemol = FindViewById<EditText>(Resource.Id.NombreBemol);
-            nombrebemol.Text = nbrbemol.ToString();
 
 
             
@@ -94,14 +91,6 @@ namespace MaestroPad
             //recuperation des informations de la mesure
             mesure = Intent.GetStringExtra("id_bouton") ?? "echec de recuperation du numero de la mesure";
             numeroMesure = Convert.ToInt32(mesure);
-            valeurdelanuance = Convert.ToInt32(Intent.GetStringExtra("choix_nuance"));
-            valeurcouleurAlerte = Convert.ToInt32(Intent.GetStringExtra("choix_alerte"));
-             booleandereprise = Convert.ToInt32(Intent.GetStringExtra("Bool_reprise"));
-             finreprise = Convert.ToInt32(Intent.GetStringExtra("finreprise"));
-            nbrdiese = Convert.ToInt32(Intent.GetStringExtra("nbr_diese"));
-            nbrbemol = Convert.ToInt32(Intent.GetStringExtra("nbr_bemol"));
-
-            
 
 
             // event des bouttons

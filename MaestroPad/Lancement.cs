@@ -43,11 +43,10 @@ namespace MaestroPad
         int mod3 = 1;
       //  int mod4 = 1;
         public static int position = 0;
-        int[] dejapasse;
-
+        public static int dejapasse =0;
+        public static int onvacommencer = 1;
 
         Thread mythread;
-        Thread mythread1;
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -55,7 +54,6 @@ namespace MaestroPad
             //parametrage de midi et threads
             manager = (MidiManager)GetSystemService(MidiService);
             mythread = new Thread(new ThreadStart(envoi));
-            mythread1 = new Thread(new ThreadStart(envoi));
 
             // Create your application here
 
@@ -69,7 +67,6 @@ namespace MaestroPad
 
             //initialisation 
             Mesures = new int[nombresdemesure,colonne];
-             dejapasse = new int[nombresdemesure];
 
             //recuperation des données
             string numerateur = Intent.GetStringExtra("valeurnumerateur") ?? "numerateur not available";
@@ -97,11 +94,6 @@ namespace MaestroPad
                 Mesures[j, NumerofinReprise] = Convert.ToInt32(tmp5);
                 Mesures[j, NombreDieses] = Convert.ToInt32(tmp6);
                 Mesures[j, nombreBemols] = Convert.ToInt32(tmp7);
-                if (Mesures[j, BoolReprise] == 1)
-                {
-                    dejapasse[j] = 0;
-                    Toast.MakeText(ApplicationContext, "dejapasse de " + j + " " + dejapasse[j].ToString(), ToastLength.Long).Show();
-                }
             }
 
             //les boutons 
@@ -125,7 +117,6 @@ namespace MaestroPad
                 }
                 else
                 {
-                    mythread1.Start();
                     string message = " Excecution en cours ";
                     Toast.MakeText(ApplicationContext, message, ToastLength.Long).Show();
                 }
@@ -165,7 +156,6 @@ namespace MaestroPad
                 };
                 Retour.Click += delegate
                 {
-                    Intent back = new Intent(this, typeof(ParametrageMesures));
                     Finish();
                 };
 
@@ -176,6 +166,196 @@ namespace MaestroPad
         }
         public void envoi()
         {
+            do
+            {
+                int inter = -1;
+                int tmp = 1;
+                //int tampon = 0;
+                if (valnote == 25)//rien
+                {
+                    while (position < 1)
+                    {
+                        if (Mesures[position, BoolReprise] == 1)
+                        {
+                            inter = position;
+
+                        }
+
+                        //envoi  noteON et noteOFF
+                        if (tmp == 1)
+                        {
+
+                            // debut de la partition 
+                            //  monenvoi.Keypressure(tmp, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
+                            monenvoi.controlChange(10, 0, tmp);//envoi de la nuance
+                            monenvoi.noteOn(1, valnumerateur, valnote);
+                            monenvoi.noteOn(1, valnumerateur, tmp);
+
+                        }
+                        else
+                        {
+                            Thread.Sleep(tempoval);
+                            monenvoi.noteOff(2, 1, tmp - 1);
+                            monenvoi.noteOn(1, valnumerateur, tmp);
+                        }
+                        tmp++;
+                        if (tmp > valnumerateur - 1)
+                        {
+                            Thread.Sleep(tempoval);
+                            monenvoi.noteOff(2, 1, tmp - 1);
+                            if (valnumerateur != 1)
+                            {
+                                monenvoi.noteOn(1, valnumerateur, tmp);
+                                Thread.Sleep(tempoval);
+                                monenvoi.noteOff(2, 1, tmp);
+                            }
+
+                            tmp = 1;
+                            position++;
+                            if ((inter >= 0) && (position > (Mesures[inter, NumerofinReprise] - 1)) && (dejapasse == 0))
+                            {
+                                position = inter;
+                                dejapasse = 1;
+                            }
+                            //  nombresdemesure--;
+
+                        }
+                    }
+                    position = 0;
+                    
+                }
+                if (valnote == 26)//binaire
+                {
+                    while (position < 1)
+                    {
+                        if (Mesures[position, BoolReprise] == 1)
+                        {
+                            inter = position;
+                            dejapasse = 0;
+
+                        }
+
+                        //envoi  noteON et noteOFF
+                        if (tmp == 1)
+                        {
+                            //debut de la partition
+                            //  monenvoi.Keypressure(tmp, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
+                            monenvoi.controlChange(10, 0, tmp);//envoi de la nuance
+                            monenvoi.noteOn(1, valnumerateur, valnote);
+                            monenvoi.noteOn(1, valnumerateur, tmp);
+
+                        }
+                        else
+                        {
+                            Thread.Sleep(tempoval / 2);
+                            monenvoi.noteOff(2, 1, tmp - 1);
+                            Thread.Sleep(tempoval / 2);
+                            monenvoi.noteOff(2, 2, tmp - 1);
+                            monenvoi.noteOn(1, valnumerateur, tmp);
+
+                            // verif_tempo();
+                        }
+                        tmp++;
+                        if (tmp > valnumerateur - 1)
+                        {
+                            Thread.Sleep(tempoval / 2);
+                            monenvoi.noteOff(2, 1, tmp - 1);
+                            Thread.Sleep(tempoval / 2);
+                            monenvoi.noteOff(2, 2, tmp - 1);
+                            if (valnumerateur != 1)
+                            {
+                                monenvoi.noteOn(1, valnumerateur, tmp);
+                                Thread.Sleep(tempoval / 2);
+                                monenvoi.noteOff(2, 1, tmp);
+                                Thread.Sleep(tempoval / 2);
+                                monenvoi.noteOff(2, 2, tmp);
+                            }
+
+                            tmp = 1;
+                            position++;
+                            if ((inter >= 0) && (position > (Mesures[inter, NumerofinReprise] - 1)) && (dejapasse == 0))
+                            {
+                                position = inter;
+                                dejapasse = 1;
+                            }
+                            //nombresdemesure--;
+
+                        }
+                    }
+                    position = 0;
+
+                }
+                if (valnote == 27)//ternaire
+                {
+                    // int tmp = 2; // pour recuperer la dernière valeur du noteoff à partir du temps 
+                    int ind = 0;
+                    valnumerateur = valnumerateur / 3;
+
+                    while (position < 1)
+                    {
+                        if (Mesures[position, BoolReprise] == 1)
+                        {
+                            inter = position;
+                            dejapasse = 0;
+
+                        }
+
+                        //envoi  noteON et noteOFF
+                        if (tmp == 1)
+                        {
+                            //debut de la partition
+                            monenvoi.controlChange(10, 0, tmp);//envoi de la nuance
+                            monenvoi.noteOn(1, valnumerateur, valnote);
+                            monenvoi.noteOn(1, valnumerateur, tmp);
+                            Thread.Sleep(tempoval / 3);
+                            monenvoi.noteOff(2, 1, tmp);
+                            Thread.Sleep(tempoval / 3);
+                            monenvoi.noteOff(2, 2, tmp);
+                            Thread.Sleep(tempoval / 3);
+                            monenvoi.noteOff(2, 3, tmp);
+                            ind++;
+                        }
+                        else
+                        {
+                            monenvoi.noteOn(1, valnumerateur, tmp);
+
+                            Thread.Sleep(tempoval / 3);
+                            monenvoi.noteOff(2, 1, tmp);
+                            Thread.Sleep(tempoval / 3);
+                            monenvoi.noteOff(2, 2, tmp);
+                            Thread.Sleep(tempoval / 3);
+                            monenvoi.noteOff(2, 3, tmp);
+
+                            // tmp = tmp + 2;
+                            ind++;
+
+                        }
+                        if (valnumerateur != ind)
+                        {
+                            tmp++;
+                        }
+                        else
+                        {
+                            tmp = 1;
+                            //   tmp = 2;
+                            ind = 0;
+                            position++;
+                            if ((inter >= 0) && (position > (Mesures[inter, NumerofinReprise] - 1)) && (dejapasse == 0))
+                            {
+                                position = inter;
+                                dejapasse = 1;
+                            }
+                            // nombresdemesure--;
+                        }
+
+
+                    }
+                    position = 0;
+                    valnumerateur = valnumerateur * 3;
+                }
+
+            } while (onvacommencer != 1);
+
             int intermediaire = -1;
             int temps = 1;
             //int tampon = 0;
@@ -192,7 +372,6 @@ namespace MaestroPad
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-        
 
                         // debut de la partition 
                         monenvoi.Keypressure(temps, Mesures[position,nombreBemols], Mesures[position, NombreDieses]);
@@ -221,10 +400,10 @@ namespace MaestroPad
 
                         temps = 1;
                         position++;
-                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
+                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
                         {
                             position = intermediaire;
-                            dejapasse[intermediaire] = 1;
+                            dejapasse = 1;
                         }
                         //  nombresdemesure--;
 
@@ -239,15 +418,13 @@ namespace MaestroPad
                     if (Mesures[position, BoolReprise] == 1)
                     {
                         intermediaire = position;
-                        dejapasse[intermediaire] = 0;
+                        dejapasse= 0;
 
                     }
                    
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-      
-
                         //debut de la partition
                         monenvoi.Keypressure(temps, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
@@ -283,10 +460,10 @@ namespace MaestroPad
 
                         temps = 1;
                         position++;
-                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
+                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
                         {
                             position = intermediaire;
-                            dejapasse[intermediaire] = 1;
+                            dejapasse = 1;
                         }
                         //nombresdemesure--;
 
@@ -305,15 +482,13 @@ namespace MaestroPad
                     if (Mesures[position, BoolReprise] == 1)
                     {
                         intermediaire = position;
-                        dejapasse[intermediaire] = 0;
+                        dejapasse = 0;
 
                     }
                    
                     //envoi  noteON et noteOFF
                     if (temps == 1)
                     {
-
-
                         //debut de la partition
                         monenvoi.Keypressure(temps, Mesures[position, nombreBemols], Mesures[position, NombreDieses]);
                         monenvoi.controlChange(Mesures[position, alerte], Mesures[position, nuance], temps);//envoi de la nuance
@@ -352,10 +527,10 @@ namespace MaestroPad
                         //   tmp = 2;
                         ind = 0;
                         position++;
-                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse[intermediaire] == 0))
+                        if ((intermediaire >= 0) && (position > (Mesures[intermediaire, NumerofinReprise] - 1)) && (dejapasse == 0))
                         {
                             position = intermediaire;
-                            dejapasse[intermediaire] = 1;
+                            dejapasse = 1;
                         }
                         // nombresdemesure--;
                     }

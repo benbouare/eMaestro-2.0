@@ -149,7 +149,7 @@ namespace MaestroPad
             numerateur = bundle.GetString("numerateur");
             denominateur = bundle.GetString("denominateur");
             tempoval = Convert.ToInt32(bundle.GetString("valeurdutempo"));
-            tempo.Text = tempoval.ToString();
+            tempo.Text = bundle.GetString("valeurdutempo");
             valnote = Convert.ToInt32(bundle.GetString("valeurdumode"));
             
 

@@ -243,16 +243,7 @@ namespace MaestroPad
         {
             Intent intent = new Intent(this, typeof(ParametrageNuancesALertes));
             intent.PutExtra("id_bouton", numeroMesure.ToString());
-            /*intent.PutExtra("mode_nuance", modnu);
-            intent.PutExtra("Bool_reprise", BoolRep);
-            intent.PutExtra("finreprise", numfinrep);
-            intent.PutExtra("nbr_diese", nbrdies);
-            intent.PutExtra("nbr_bemol", nbrbem);
-            intent.PutExtra("choix_nuance", nua);
-            intent.PutExtra("choix_alerte", aler);*/
-
-
-            //Toast.MakeText(ApplicationContext, numeroMesure.ToString(), ToastLength.Long).Show();
+  
             StartActivityForResult(intent,0);
         }
     }
