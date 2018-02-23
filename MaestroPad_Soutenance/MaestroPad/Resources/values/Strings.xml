@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="app_name">MaestroPad</string>
+  <string-array name ="ListeNuances">
+    <item>Aucune</item>
+    <item>Pianississimo</item>
+    <item>Pianissimo</item>
+    <item>Piano</item>
+    <item>Mezzopiano</item>
+    <item>Fortississimo</item>
+    <item>Fortissimo</item>
+    <item>Forte</item>
+    <item>Mezzoforte</item>
+  </string-array>
+  <string-array name ="ListeCouleur">
+    <item>Aucune</item>
+    <item>Crimson</item>
+    <item>DarkOliveGreen</item>
+    <item>Deeppink</item>
+    <item>Lemonchiffon</item>
+    <item>Navy</item>
+    <item>Firebrick</item>
+  </string-array>
+</resources>
